@@ -1,6 +1,8 @@
 #include<iostream>
 #include "bank.h"
 using namespace std:
+
+
 bank::bank() {
 	brick = 20;
 	wood = 20;
@@ -14,38 +16,38 @@ bank::bank() {
 	victory = 5;
 }
 int bank::getBrick() {
-	brick--;
+	return brick;
 }
 int bank::getWood() {
-	wood--;
+	return wood;
 }
 int bank::getStone() {
-	stone--;
+	return stone;
 }
 int bank::getWheat() {
-	wheat--;
+	return wheat;
 }
 int bank::getSheep() {
-	sheep--;
+	return sheep;
 }
 int bank::getKnight() {
-	knight--;
+	return knight;
 }
 int bank::getRoad_construction() {
-	road_construcction--;
+	return road_construcction;
 	
 }
 int bank::getBlessed_year() {
-	blessed_year --;
+	return blessed_year;
 	
 }
 int bank::getExclusive_right() {
-	exclusive_right--;
+	return exclusive_right;
 	
 }
 int bank::getVictory() {
 	
-	victory --;
+	return victory;
 }
 bool bank::updateResource(int n, string resource, char m) {
 	if (m == '+') {   //get resource from bank
@@ -75,61 +77,59 @@ bool bank::updateResource(int n, string resource, char m) {
 			if (brick >= n)
 				brick -= n;
 			else
-				cout << "not available" << endl;
-
+				return false;
 		if (resource == "wood")
 			if (wood >= n)
 				wood -= n;
 			else
-				cout << "not available" << endl;
+				return false;
 
 		if (resource == "stone")
 			if (stone >= n)
 				stone -= n;
 			else
-				cout << "not available" << endl;
+				return false;
 
 		if (resource == "wheat")
 			if (wheat >= n)
 				wheat -= n;
 			else
-				cout << "not available" << endl;
+				return false;
 
 		if (resource == "sheep")
 			if (sheep >= n)
 				sheep -= n;
 			else
-				cout << "not available" << endl;
-
+				return false;
 
 		if (resource == "knight")
 			if (knight >= n)
 				knight -= n;
 			else
-				cout << "not available" << endl;
+				return false;
 
 		if (resource == "road_construction")
 			if (road_construction >= n)
 				road_construction -= n;
 			else
-				cout << "not available" << endl;
-
+				return false;
+		
 		if (resource == "blessed_year")
 			if (blessed_year >= n)
 				blessed_year -= n;
 			else
-				cout << "not available" << endl;
+				return false;
 
 		if (resource == "exclusive_right")
 			if (exclusive_right >= n)
 				exclusive_right -= n;
 			else
-				cout << "not available" << endl;
-
+				return false;
+		
 		if (resource == "victory")
 			if (victory >= n)
 				victory -= n;
 			else
-				cout << "not available" << endl;
+				return false;
 	}
 }
