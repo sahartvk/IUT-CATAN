@@ -1,6 +1,7 @@
 #include "catan.h"
 #include "catan1.h"
-#include <windows.h>
+#include "playground.h"
+#include "sign_in.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

@@ -1,5 +1,24 @@
 <RCC>
     <qresource prefix="/prefix1">
         <file>image/hani.png</file>
+        <file>image/WhatsApp Image 2021-07-10 at 12.38.18.jpeg</file>
+        <file>image/start2_2.jpg</file>
+        <file>1.jpg</file>
+        <file>image/player4.jpg</file>
+        <file>image/player1.jpg</file>
+        <file>image/player2.jpg</file>
+        <file>image/player3.jpg</file>
+        <file>image/hani2.jpg</file>
+        <file>image/hani3.jpg</file>
+        <file>image/setting.png</file>
+        <file>image/21504-middle.png</file>
+        <file>image/hani4.jpg</file>
+        <file>image/hani5.jpg</file>
+        <file>image/catan-background_citiesandknights_sm.jpg</file>
+        <file>image/catan-background_lotc_sm.jpg</file>
+        <file>image/catan-background_seafarers_sm_0.jpg</file>
+        <file>image/hani6.jpg</file>
+        <file>image/hani7.jpg</file>
+        <file>image/2602305.png</file>
     </qresource>
 </RCC>

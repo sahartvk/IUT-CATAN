@@ -97,10 +97,10 @@
    <widget class="QPushButton" name="loading">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>470</y>
-      <width>201</width>
-      <height>71</height>
+      <x>800</x>
+      <y>420</y>
+      <width>171</width>
+      <height>121</height>
      </rect>
     </property>
     <property name="font">
@@ -110,7 +110,17 @@
      </font>
     </property>
     <property name="text">
-     <string>loading...</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="resource.qrc">
+      <normaloff>:/prefix1/1.jpg</normaloff>:/prefix1/1.jpg</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>150</width>
+      <height>100</height>
+     </size>
     </property>
    </widget>
   </widget>

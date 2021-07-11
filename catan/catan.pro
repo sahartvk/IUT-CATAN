@@ -10,16 +10,34 @@ CONFIG += c++11
 
 SOURCES += \
     catan1.cpp \
+    catan2.cpp \
+    catan3.cpp \
     main.cpp \
-    catan.cpp
+    catan.cpp \
+    playground.cpp \
+    setting.cpp \
+    sign_in.cpp \
+    sign_up.cpp
 
 HEADERS += \
     catan.h \
-    catan1.h
+    catan1.h \
+    catan2.h \
+    catan3.h \
+    playground.h \
+    setting.h \
+    sign_in.h \
+    sign_up.h
 
 FORMS += \
     catan.ui \
-    catan1.ui
+    catan1.ui \
+    catan2.ui \
+    catan3.ui \
+    playground.ui \
+    setting.ui \
+    sign_in.ui \
+    sign_up.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,3 +46,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES +=
