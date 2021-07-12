@@ -7,7 +7,8 @@ public:
 	Player();
 	int update();
 	void draw();
-	void getusername();
+	void setusername();
+        string getusername(string);
 	bool tradeWithBank();
 	bool tradeWithPlayers();
 
