@@ -51,85 +51,132 @@ int bank::getVictory() {
 }
 bool bank::updateResource(int n, string resource, char m) {
 	if (m == '+') {   //get resource from bank
-		if (resource == "brick")
+		if (resource == "brick"){
 			brick += n;
-		if (resource == "wood")
+			return true;
+		}
+		if (resource == "wood"){
 			wood += n;
-		if (resource == "stone")
+			return true;
+		}
+		if (resource == "stone"){
 			stone+= n;
-		if (resource == "wheat")
+			return true;
+		}
+		if (resource == "wheat"){
 			wheat += n;
-		if (resource == "sheep")
+			return true;
+		}
+		if (resource == "sheep"){
 			shep+= n;
-		if (resource == "knight")
+			return true;
+		}
+		if (resource == "knight"){
 			knight += n;
-		if (resource == "road_construction")
+			return true;
+		}
+		if (resource == "road_construction"){
 			road_construction += n;
-		if (resource == "blessed_year")
+			return true;
+		}
+		if (resource == "blessed_year"){
 			blessed_year += n;
-		if (resource == "exclusive_right")
+			return true;
+		}
+		if (resource == "exclusive_right"){
 			exclusive_right += n;
-		if (resource == "victory")
+			return true;
+		}
+		if (resource == "victory"){
 			victory += n;
+			return true;
+		}
 	 }
-	if (m == '-') {   //give resource to bank
-		if (resource == "brick")
-			if (brick >= n)
+	else if (m == '-') {   //give resource to bank
+		if (resource == "brick"){
+			if (brick >= n){
 				brick -= n;
-			else
-				return false;
-		if (resource == "wood")
-			if (wood >= n)
+				return true;
+			}
+		return false;
+		}
+			
+		if (resource == "wood"){
+			if (wood >= n){
 				wood -= n;
-			else
-				return false;
-
-		if (resource == "stone")
-			if (stone >= n)
+				return true;
+			}
+			return false;
+		}
+			
+		if (resource == "stone"){
+			if (stone >= n){
 				stone -= n;
-			else
-				return false;
+				return true;
+			}
+		        return false;
+		}
 
-		if (resource == "wheat")
-			if (wheat >= n)
+		if (resource == "wheat"){
+			if (wheat >= n){
 				wheat -= n;
-			else
-				return false;
+				return true;
+			}
+			return false;
+		}
 
-		if (resource == "sheep")
-			if (sheep >= n)
+		if (resource == "sheep"){
+			if (sheep >= n){
 				sheep -= n;
-			else
-				return false;
+				return true;
+			}
+			return false;
+		}
 
-		if (resource == "knight")
-			if (knight >= n)
+		if (resource == "knight"){
+			if (knight >= n){
 				knight -= n;
-			else
-				return false;
+			        return true;
+			}
+			return false;
+		}
 
-		if (resource == "road_construction")
-			if (road_construction >= n)
+
+		if (resource == "road_construction"){
+			if (road_construction >= n){
 				road_construction -= n;
-			else
-				return false;
-		
-		if (resource == "blessed_year")
-			if (blessed_year >= n)
-				blessed_year -= n;
-			else
-				return false;
+			         return true;
+			}
+			return false;
+		}
 
-		if (resource == "exclusive_right")
-			if (exclusive_right >= n)
-				exclusive_right -= n;
-			else
-				return false;
 		
-		if (resource == "victory")
-			if (victory >= n)
+		if (resource == "blessed_year"){
+			if (blessed_year >= n){
+				blessed_year -= n;
+			        return true;
+			}
+			return false;
+		}
+
+
+		if (resource == "exclusive_right"){
+			if (exclusive_right >= n){
+				exclusive_right -= n;
+				return true;
+			}
+			return false;
+		}
+
+			
+		
+		if (resource == "victory"){
+			if (victory >= n){
 				victory -= n;
-			else
-				return false;
+			        return true;
+			}
+			return false;
+		}
+
 	}
 }
