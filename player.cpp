@@ -28,8 +28,8 @@ int Player:: update() {
 	int a, b;
 	trade t(a, b);
 	//get vector of resources
-	vector<ResourceCar>t1, t2;
-	t.trading(t1, t2);
+	//vector<ResourceCar>t1, t2;
+	//t.trading(t1, t2);
 
 }*/
 bool Player::tradeWithPlayers() {
