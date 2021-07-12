@@ -19,12 +19,12 @@ int Player:: update() {
 	int n=first.getvalue() + second.getvalue();
 	// get resource from neighbor
 	victorypoint = homes.size() + cities.size() * 2;
-
+	return victorypoint;
 }
 void Player::draw() {
 	//..........
 }
-bool Player::tradeWithBank() {
+/*bool Player::tradeWithBank() {
 	//get ratio1,2
 	int a, b;
 	trade t(a, b);
@@ -32,7 +32,7 @@ bool Player::tradeWithBank() {
 	vector<ResourceCar>t1, t2;
 	t.trading(t1, t2);
 
-}
+}*/
 bool Player::tradeWithPlayers() {
 	//get ratio1,2
 	int a, b;
