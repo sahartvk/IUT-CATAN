@@ -3,6 +3,7 @@
 #include "catan3.h"
 #include "sign_in.h"
 #include "catan2.h"
+#include <fstream>
 sign_up::sign_up(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::sign_up)
@@ -14,6 +15,23 @@ sign_up::sign_up(QWidget *parent) :
 }
 void sign_up::onSign_up()
 {
+    if(ui->password_->text()!=ui->rpassword_->text())
+    {
+
+    }
+    QString u,p,e;
+    u=ui->username_->text();
+    p=ui->password_->text();
+    e=ui->email_->text();
+
+    QString qstr=e+" "+p+" "+u+"\n";
+    std::string str = qstr.toLocal8Bit().constData();
+
+    std:: ofstream fout;
+    fout.open("users.txt",std::ios_base::app);
+    fout<<str;
+    fout.close();
+
     sign_in *si=new sign_in;
     si->show();
     this->close();

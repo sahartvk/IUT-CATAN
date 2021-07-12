@@ -12,7 +12,7 @@ catan2::catan2(QWidget *parent) :
     connect(ui->sign_in,SIGNAL(clicked(bool)),this,SLOT(onSign_in()));
     connect(ui->sign_up,SIGNAL(clicked(bool)),this,SLOT(onSign_up()));
     connect(ui->setting,SIGNAL(clicked(bool)),this,SLOT(onSetting()));
-    connect(ui->guide,SIGNAL(clicked(bool)),this,SLOT(onSign_in()));
+    connect(ui->guide,SIGNAL(clicked(bool)),this,SLOT(onGuide()));
     connect(ui->quit,SIGNAL(clicked(bool)),this,SLOT(onQuit()));
 }
 void catan2::onSign_in()

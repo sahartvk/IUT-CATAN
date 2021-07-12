@@ -2,6 +2,7 @@
 #include "ui_sign_in.h"
 #include "catan3.h"
 #include "catan2.h"
+#include <fstream>
 sign_in::sign_in(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::sign_in)
@@ -14,9 +15,42 @@ sign_in::sign_in(QWidget *parent) :
 }
 void sign_in::onSign_in()
 {
-    catan3 *c3=new catan3;
-    c3->show();
-    this->close();
+    QString e,p;
+    e=ui->email_->text();
+    p=ui->password_->text();
+
+    std::ifstream fin;
+    fin.open("users.txt");
+
+    bool wrongInfo=true;
+    while (fin) {
+        std::string line;
+        getline(fin, line);
+        std::string temp=line.substr(0,line.find(" "));
+        line=line.substr(line.find(" ")+1);
+
+        QString qu = QString::fromStdString(temp);
+
+        temp="";
+        temp=line.substr(0,line.find(" "));
+        line=line.substr(line.find(" ")+1);
+
+        QString qp = QString::fromStdString(temp);
+
+        if(e.compare(qu)==0&&p.compare(qp)==0){
+               wrongInfo=false;
+               break;
+        }
+    }
+    if(wrongInfo==false){
+        catan3 *c3=new catan3;
+        c3->show();
+        this->close();
+    }
+    else{
+       //  Wronginfo* msg=new Wronginfo();
+       //  msg->show();
+    }
 }
 void sign_in::onQuit()
 {

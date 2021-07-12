@@ -3,7 +3,6 @@
         <file>image/hani.png</file>
         <file>image/WhatsApp Image 2021-07-10 at 12.38.18.jpeg</file>
         <file>image/start2_2.jpg</file>
-        <file>1.jpg</file>
         <file>image/player4.jpg</file>
         <file>image/player1.jpg</file>
         <file>image/player2.jpg</file>
@@ -20,5 +19,8 @@
         <file>image/hani6.jpg</file>
         <file>image/hani7.jpg</file>
         <file>image/2602305.png</file>
+        <file>image/background.jpg</file>
+        <file>image/Shot 0001.png</file>
+        <file>image/Shot 0002.png</file>
     </qresource>
 </RCC>

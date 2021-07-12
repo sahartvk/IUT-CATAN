@@ -7,7 +7,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    catan c;
+    catan c1;
+    c1.show();
+    playground c;
     c.show();
     return a.exec();
 }
