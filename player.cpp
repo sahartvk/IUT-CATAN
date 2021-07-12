@@ -7,11 +7,12 @@ using namespace std;
 Player::Player() {
 	victorypoint = 0;
 }
-void Player::getusername() {
-	string user;
-	cout << "Enter your username" << endl;
-	cin >> user;
+void Player::setusername(string user) {
 	username = user;
+}
+
+string Player::getusername(){
+	return username;
 }
 int Player:: update() {
 	first.roll();
@@ -21,9 +22,7 @@ int Player:: update() {
 	victorypoint = homes.size() + cities.size() * 2;
 	return victorypoint;
 }
-void Player::draw() {
-	//..........
-}
+
 /*bool Player::tradeWithBank() {
 	//get ratio1,2
 	int a, b;
