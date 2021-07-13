@@ -48,7 +48,7 @@ void PlayThread::myRead(int i,QByteArray& data){
 void PlayThread::beginingOfTheGame(int i){
 
     QByteArray data;
-    myWrite(i,"go");
+    myWrite(i,"goB");
 
     for(int i=0;i<2;i++){
 
@@ -74,7 +74,7 @@ void PlayThread::restOfTheGame(){
         QByteArray data1="",data2="";
 
         //read dice number
-        myWrite(i,"goDice");
+        myWrite(i,"rollDice");
 
         myRead(i,data1);
         for(int j=0;j<numOfPlayers;j++){
@@ -85,7 +85,7 @@ void PlayThread::restOfTheGame(){
 
 
         //action
-        myWrite(i,"goAction");
+        myWrite(i,"go");
 
         while(data2!="finish"){
             myRead(i,data2);
@@ -95,6 +95,8 @@ void PlayThread::restOfTheGame(){
                 myWrite(j,data1);
             }
         }
+
+        myWrite(i,"stop");
     }
 
 }

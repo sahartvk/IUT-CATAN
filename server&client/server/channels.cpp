@@ -74,6 +74,7 @@ void channels::_3players(QString sdata){
     finishT=true;
     gameType=3;
 
+
     //::addPlayer(3,socket);
 
 }

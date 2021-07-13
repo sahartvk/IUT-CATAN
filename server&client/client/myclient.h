@@ -27,9 +27,6 @@ private:
 
     bool connected;
 
-    int count;
-    int turn;
-
     void game();
 
     void myWrite(QByteArray& data);
@@ -38,11 +35,10 @@ private:
 
 public slots:
 
-    void connectToServer();
     void readingData();
-    void writingData();
+    //void writingData();
     void connectedToServer();
-    void disconnectFromServer();
+    //void disconnectFromServer();
 
     void nextClicked();
 
@@ -56,7 +52,7 @@ public slots:
     void fourPlayerGameClicked();
 
     void verticeClicked();
-    void edgeClicked(){
+    void edgeClicked();
 
 };
 #endif // MYCLIENT_H
