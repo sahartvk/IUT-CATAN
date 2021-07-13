@@ -13,13 +13,13 @@ SOURCES += \
     main.cpp \
     server.cpp \
     player.cpp \
-    clients.cpp
+    playthread.cpp
 
 HEADERS += \
     channels.h \
     server.h \
     player.h \
-    clients.h
+    playthread.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

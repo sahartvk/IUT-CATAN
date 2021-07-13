@@ -5,10 +5,10 @@
 #include<QTcpServer>
 #include<vector>
 #include<QTcpSocket>
-#include"channels.h"
 #include<QByteArray>
 #include"player.h"
-//#include"clients.h"
+#include"playthread.h"
+#include"channels.h"
 
 
 
@@ -17,41 +17,40 @@ class server : public QMainWindow
     Q_OBJECT
 
 public:
+
     server(QWidget *parent = nullptr);
     ~server();
 
-     int count;
+     //static void addPlayer(int i,QTcpSocket* socket);
 
-     int numOfPlayers;
+     //void addP3(Player* p);
+     //void addP4(Player* p);
+
+     std::vector<Player*> tempP3;
+     std::vector<Player*> tempP4;
 
 private:
 
     QTcpServer* myserver;
 
-    std::vector<Player *> players;
     std::vector<channels *> connections;
+    std::vector<PlayThread *> pt;
 
-    void myWrite(int i,QByteArray& data);
-    void myRead(int i,QByteArray& data);
-
-    void readUsername();
-    void writeTurn();
-
-    void beginingOfTheGame(int i);
-    void restOfTheGame();
 
 signals:
     //???
     void enoughPlayers();
 
-    void vertice();
-    void edge();
-    void dice();
+//    void vertice();
+//    void edge();
+//    void dice();
 
 
 
 public slots:
+
     void newConnectionSlot();
-    void game();
+
+    void newPlayThread();
 };
 #endif // SERVER_H

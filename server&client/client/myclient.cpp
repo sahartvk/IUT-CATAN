@@ -201,6 +201,8 @@ void myClient::verticeClicked(){
     //initial data
     write("vertice");
     write(data);
+
+    p.update("red:s1")
 }
 
 void myClient::edgeClicked(){

@@ -12,32 +12,36 @@ channels::channels(QTcpSocket* _socket,QObject *parent) : QObject(parent)
 }
 void channels::communicate(){
 
-    connect(clientSocket,SIGNAL(readyRead()),this,SLOT(readingData()));
+    //connect(clientSocket,SIGNAL(readyRead()),this,SLOT(readingData()));
 
-    while(true){
+    finishT=false;
+
+    while(!finishT){
+        QByteArray data;
+
         while(!socket->waitForReadyRead(-1));
-        qDebug()<<"data recieved"<<socket->readAll();
-        socket->write("welcome user");
-        socket->waitForBytesWritten(-1);
-        qDebug()<<"message sent";
+        data=socket->readAll();
+        readingData(data);
     }
 
 }
 
-void channels::readingData(){
 
-    QByteArray data=socket->readAll();
-    //????? what do we do we the data???????
+void channels::readingData(QByteArray data){
+
     QString sdata=data;
 
-    if(sdata=="signup")
-        emit signUp();
-    if(sdata=="signin")
-        emit signIn();
-    if(sdata=="3")
-        emit _3players();
-    if(sdata=="4")
-        emit _4Players();
+    if(sdata.contains("signup"))
+        signUp(sdata);
+
+    else if(sdata.contains("signin"))
+        signIn(sdata);
+
+    else if(sdata.contains("3"))
+        _3players(sdata);
+
+    else if(sdata.contains("4"))
+        _4Players(sdata);
 }
 
 channels::~channels(){
@@ -45,82 +49,40 @@ channels::~channels(){
     qDebug()<<"channel closed";
 }
 
-//void channels::beginingOfTheGame(){
+void channels::signUp(QString sdata){
 
-//    QByteArray data;
+    std::string str=sdata.toStdString();
+    std::string s=str.substr(str.find(":")+1);
 
-//    if(i==turn){
-//        while(!socket->waitForReadyRead(-1));
-//        data = socket->readAll();
-//    }
-//    if(i!=turn){
-//        socket->write(data);
-//        socket->waitForBytesWritten(-1);
-//    }
-//}
+    //write s to file
+
+}
+
+void channels::signIn(QString sdata){
 
 
+    std::string str=sdata.toStdString();
+    std::string s=str.substr(str.find(":")+1);
 
-//int n=server::getNumOfClients();
-
-////read username
-//while(!socket->waitForReadyRead(-1));
-//QByteArray data=socket->readAll();
-
-////write clients turn
-//std::string _turn=std::to_string(turn);
-//socket->write((char*)_turn);
-//socket->waitForBytesWritten(-1);
-
-//for(int i=1;i<server::getNumOfClients();i++){
-//    beginingOfTheGame();
-//}
-
-//for(int i=server::getNumOfClients();i>0;i--){
-//    beginingOfTheGame();
-//}
-
-
-//while(true){
-
-//    //check if has bug--->yes  string n...
-
-//    QByteArray data;
-
-//    //dice
-//    if(turn==(count%n)+1){
-
-//        while(!socket->waitForReadyRead(-1));
-//        data=socket->readAll();
-
-//    }
-
-//    socket->write(data);
-//    socket->waitForBytesWritten(-1);
-//    //get card
-
-
-//    //action
-//    if(turn==(count%n)+1){
-
-//        while(!socket->waitForReadyRead(-1));
-//        data=socket->readAll();
-//    }
-
-
-//    socket->write();
-//    socket->waitForBytesWritten(-1);
-
-
-//}
-
-void channels::signUpSlot(){
+    //check from file
 
 
 }
 
-void channels::();
-void channels::_3playersSlot();
-void channels::_4PlayersSlot();
+void channels::_3players(QString sdata){
 
+    finishT=true;
+    gameType=3;
+
+    //::addPlayer(3,socket);
+
+}
+
+void channels::_4Players(QString sdata){
+
+    finishT=true;
+    gameType=4;
+
+    //server::addPlayer(4,socket);
+}
 

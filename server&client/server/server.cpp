@@ -1,4 +1,5 @@
 #include "server.h"
+
 using namespace std;
 
 server::server(QWidget *parent)
@@ -15,147 +16,64 @@ server::server(QWidget *parent)
         connect(myserver,SIGNAL(newConnection()),this,SLOT(newConnectionSlot()));
     }
 
-    //3 or 4 player
-    //connect(this,SIGNAL(enoughPlayers()),this,SLOT(game()));
+    connect(this,SIGNAL(enoughPlayers()),this,SLOT(newPlayThread()));
 
 }
 void server::newConnectionSlot(){
-//    static int temp=1;
-
-//    //channels * newchannel=new channels(myserver->nextPendingConnection(),0);
-
-//    //newchannel->turn=temp;
-//    //connections.push_back(newchannel);
-
-//    //temp++;
-
-//    Player * newPlayer=new Player(temp,myserver->nextPendingConnection());
-//    players.push_back(newPlayer);
-
-//    temp++;
-
-
-//    if(temp==numOfPlayers){
-//        emit enoughPlayers();
-//    }
 
     channels* newChannel=new channels(myserver->nextPendingConnection());
     connections.push_back(newChannel);
+
 }
 
-void server::myWrite(int i,QByteArray& data){
+//void server::addPlayer(int i,QTcpSocket* socket){
 
-    players[i]->socket->write(data);
-    players[i]->socket->waitForBytesWritten(-1);
-}
+//    Player* p=new Player(socket);
 
-void server::myRead(int i,QByteArray& data){
+//    if(i==3){
+//        tempP3.push_back(p);
+//    }
 
-    while(!players[i]->socket->waitForReadyRead(-1));
-    data=players[i]->socket->readAll();
-}
+//    else if(i==3){
+//        tempP3.push_back(p);
+//    }
 
-void server::game(){
+//    if(tempP3.size()==3 || tempP4.size()==4)
+//        emit enoughPlayers();
+//}
 
-//    while(true){
-//           while(!socket->waitForReadyRead(-1));
-//           qDebug()<<"data recieved"<<socket->readAll();
-//           socket->write("welcome user");
-//           socket->waitForBytesWritten(-1);
-//           qDebug()<<"message sent";
-//       }
+//void server::addP3(Player* p){
 
+//    tempP3.push_back(p);
 
-    //username ?????
-    readUsername();
+//    if(tempP4.size()==3)
+//        emit enoughPlayers();
+//}
 
-    //turn
-    writeTurn();
+//void server::addP4(Player* p){
 
+//    tempP4.push_back(p);
 
-    //123
-    for(int i=0;i<numOfPlayers;i++) {
-        beginingOfTheGame(i);
+//    if(tempP4.size()==4)
+//        emit enoughPlayers();
+//}
+
+void server::newPlayThread(){
+
+    if(tempP3.size()==3){
+        PlayThread* newpt=new PlayThread(tempP3);
+        pt.push_back(newpt);
+        tempP3.clear();
     }
 
-    //321
-    for(int i=numOfPlayers;i>0;i--) {
-        beginingOfTheGame(i);
-    }
-
-
-    restOfTheGame();
-
-}
-
-void server::readUsername(){
-
-    for(int i=0;i<numOfPlayers;i++){
-
-        QByteArray data;
-        //????
-        myRead(i,data);
-        //??
-    }
-}
-
-void server::writeTurn(){
-
-    for(int i=0;i<numOfPlayers;i++){
-
-        //???
-        string _turn=to_string(players[i]->turn);
-        //myWrite(i,_turn); ???
+    if(tempP4.size()==4){
+        PlayThread* newpt=new PlayThread(tempP4);
+        pt.push_back(newpt);
+        tempP4.clear();
     }
 
 }
 
-void server::beginingOfTheGame(int i){
-
-    QByteArray data;
-
-    myRead(i,data);
-
-    for(int j=0;j<numOfPlayers;j++){
-
-        if(i!=j){
-
-                myWrite(j,data);
-        }
-    }
-
-}
-
-void server::restOfTheGame(){
-
-    while(true){
-
-        QByteArray data1,data2;
-
-        int n=(count%numOfPlayers)+1;
-
-        //read dice number
-        myRead(n,data1);
-
-        for(int i=0;i<numOfPlayers;i++){
-            //== or !=???
-            myWrite(i,data1);
-        }
-
-
-        //action
-        myRead(n,data2);
-
-        for(int i=0;i<numOfPlayers;i++){
-            //== or !=?????
-            myWrite(i,data1);
-        }
-
-        count++;
-
-    }
-
-}
 
 server::~server()
 {
