@@ -14,7 +14,8 @@ SOURCES += \
     catan3.cpp \
     main.cpp \
     catan.cpp \
-    playground.cpp \
+    playground_3.cpp \
+    playground_4.cpp \
     setting.cpp \
     sign_in.cpp \
     sign_up.cpp
@@ -24,7 +25,8 @@ HEADERS += \
     catan1.h \
     catan2.h \
     catan3.h \
-    playground.h \
+    playground_3.h \
+    playground_4.h \
     setting.h \
     sign_in.h \
     sign_up.h
@@ -34,7 +36,8 @@ FORMS += \
     catan1.ui \
     catan2.ui \
     catan3.ui \
-    playground.ui \
+    playground_3.ui \
+    playground_4.ui \
     setting.ui \
     sign_in.ui \
     sign_up.ui

@@ -3,6 +3,8 @@
 #include "catan3.h"
 #include "catan2.h"
 #include <fstream>
+#include <QMessageBox>
+
 sign_in::sign_in(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::sign_in)
@@ -48,8 +50,7 @@ void sign_in::onSign_in()
         this->close();
     }
     else{
-       //  Wronginfo* msg=new Wronginfo();
-       //  msg->show();
+        QMessageBox::critical(this,"Error"," Email or Password is not correct \n Please try again ");
     }
 }
 void sign_in::onQuit()

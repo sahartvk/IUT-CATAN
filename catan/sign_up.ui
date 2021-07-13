@@ -161,10 +161,13 @@
      <item>
       <widget class="QLineEdit" name="password_">
        <property name="inputMethodHints">
-        <set>Qt::ImhNone</set>
+        <set>Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
        </property>
       </widget>
      </item>
@@ -197,7 +200,13 @@
      <item>
       <widget class="QLineEdit" name="rpassword_">
        <property name="inputMethodHints">
-        <set>Qt::ImhHiddenText</set>
+        <set>Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
        </property>
       </widget>
      </item>

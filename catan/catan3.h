@@ -17,6 +17,8 @@ public:
 
 public slots:
     void onBack();
+    void on3Player();
+    void on4Player();
 private:
     Ui::catan3 *ui;
 };

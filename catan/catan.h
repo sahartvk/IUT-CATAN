@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "catan1.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class catan; }
 QT_END_NAMESPACE

@@ -47,6 +47,9 @@
       <underline>true</underline>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color:yellow;</string>
+    </property>
     <property name="text">
      <string>CATAN</string>
     </property>
@@ -65,6 +68,9 @@
       <family>Bodoni MT</family>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:orange;</string>
     </property>
     <property name="text">
      <string>UNIVERSE</string>
@@ -86,6 +92,9 @@
       <weight>50</weight>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>SIGN IN</string>
