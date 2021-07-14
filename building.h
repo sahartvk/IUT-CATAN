@@ -10,11 +10,12 @@ enum class BuildingType {
 };
 class Building {
 private:
+	int number;
 	BuildingType type;
 	string color;
 	int point;
 public:
-	Building(BuildingType _type, string _color);
+	Building(int _number, BuildingType _type, string _color);
 	int getPoint();
 	string getColor();
 };
