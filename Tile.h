@@ -1,26 +1,28 @@
-#pragma once
-#include <iostream>
-#include <vector>
-#include "Location.h"
-#include "ResourceCard.h"
+#ifndef TILE_H
+#define TILE_H
 
-using namespace std;
-enum tileType {
-	HILL, PASTURE, MOUNTAIN, FIELD, FOREST, DESERT, SEA
-};
-class Tile {
+#include<vector>
+#include<string>
+//#include"TileType.h"
+#include"Building.h"
+
+
+class Tile
+{
 private:
-	tileType type;
-	int number;
-	Location location;
-	vector<Location> adjacent;
+    std::string type;
+    int number;
+    std::vector<Building> buildings;
+    bool robberIsHere;
 
 public:
-	Tile(tileType t, int n, Location l);
-	void draw();
-	int getNumber();
-	ResourceCard getResource();
-	Location getLocation();
-	vector<Location> getAdjacent();
-
+    Tile(std::string _type,int num);
+    int getNumber();
+    std::string getCards(std::string color);
+    std::vector<std::string> moveRobberToTile();
+    void addBuildingToTile(Building b);
+    bool getRobberIsHere();
+    void deleteRobberFromTile;
 };
+
+#endif // TILE_H

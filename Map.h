@@ -1,18 +1,22 @@
-#pragma once
-#include <iostream>
-#include <vector>
-#include "Tile.h"
-#include "Seaport.h"
-#include "Robber.h"
-using namespace std;
+#ifndef MAP_H
+#define MAP_H
 
-class Map {
+#include"Tile.h"
+#include"Seaport.h"
+#include"Robber"
+
+
+class Map
+{
 private:
-	vector<Tile> tiles;
-	vector<Seaport> seaport;
-	Robber robber;
-
+    std::vector<Tile> tiles;
+    std::vector<SeaPort> seaports;
+    Robber robber;
 public:
-	Map(vector<Tile> t, vector<Seaport> s,Robber r);
-	void drawMap();
+    Map();
+    std::vector<std::string> getCards(int num,std::string color);
+    void addBuildingToTile(std::string info);
+    std::vector<std::string> moveRobberToTile(int n);
 };
+
+#endif // MAP_H
