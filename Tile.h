@@ -1,18 +1,28 @@
-#pragma once
+#ifndef TILE_H
+#define TILE_H
+
 #include<vector>
-#include"TileType.h"
-#include"Location.h"
+#include<string>
+//#include"TileType.h"
+#include"Building.h"
+
 
 class Tile
 {
-public:
-	Tile(TileType _type, int _number, const Location& _location);
-	int getNumber();
-	Location getLocation();
-	std::vector<Tile> GetAdjacent();
 private:
-	TileType type;
-	int number;
-	Location location;
-	std::vector<Tile> adjacent;
+    std::string type;
+    int number;
+    std::vector<Building> buildings;
+    bool robberIsHere;
+
+public:
+    Tile(std::string _type,int num);
+    int getNumber();
+    std::string getCards(std::string color);
+    std::vector<std::string> moveRobberToTile();
+    void addBuildingToTile(Building b);
+    bool getRobberIsHere();
+    void deleteRobberFromTile;
 };
+
+#endif // TILE_H

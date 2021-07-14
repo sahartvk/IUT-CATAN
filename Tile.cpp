@@ -1,30 +1,54 @@
-#include<iostream>
-#include<string>
-#include<vector>
 #include "Tile.h"
 
 
-using namespace std;
+Tile::Tile(std::string _type,int num){
 
-
-
-Tile::Tile(TileType _type, int _number, const Location& _location) {
-	type = _type;
-	number = _number;
-	location = _location;
+    type=_type;
+    number=num;
+    robberIsHere=false;
 }
 
-
-int Tile::getNumber() {
-	return number;
+int Tile::getNumber(){
+    return number;
 }
 
+std::string Tile::getCards(std::string color){
 
-Location Tile::getLocation() {
-	return location;
+    int count=0;
+
+    for(int i=0;i<buildings.size();i++){
+
+        if(buildings[i].getColor==color){
+
+            count+=buildings[i].getPoint();
+        }
+    }
+
+    std::string cardInfo=std::stoi(count);
+    cardInfo+="-";
+    cardInfor+=type;
+
+    return cardInfo;
 }
 
+std::vector<std::string> Tile::moveRobberToTile(){
 
-std::vector<Tile> Tile::GetAdjacent() {
-	return adjacent;
+    robberIsHere=true;
+    //rest of the code
+    //get colors to robb from
+}
+
+void Tile::addBuildingToTile(Building b){
+
+    //othercodes
+    //not complete if there was a city erase its settlement
+    buildings.push_back(b);
+}
+
+bool Tile::getRobberIsHere(){
+    return robberIsHere;
+}
+
+void Tile::deleteRobberFromTile(){
+   robberIsHere=false;
 }
