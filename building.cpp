@@ -5,6 +5,6 @@
 
 using namespace std;
 
-Building::Building(BuildingType _type, string _color) { type = _type; color = _color; }
+Building::Building(int _number, BuildingType _type, string _color) { number = _number; type = _type; color = _color; }
 int Building::getPoint() { return point; }
 string Building::getColor() { return color; }
