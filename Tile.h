@@ -3,7 +3,6 @@
 
 #include<vector>
 #include<string>
-//#include"TileType.h"
 #include"Building.h"
 
 
@@ -19,7 +18,7 @@ public:
     Tile(std::string _type,int num);
     int getNumber();
     std::string getCards(std::string color);
-    std::vector<std::string> moveRobberToTile();
+    std::vector<std::string> moveRobberToTile(std::string color);
     void addBuildingToTile(Building b);
     bool getRobberIsHere();
     void deleteRobberFromTile;

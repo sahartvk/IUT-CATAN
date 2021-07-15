@@ -1,9 +1,41 @@
 #include "Map.h"
+#include<fstream>
 
 
 Map::Map()
 {
 
+    //initial tiles
+    std::ifstream fin;
+    fin.open("initialTiles.txt");
+    if(fin){
+
+        std::string line;
+        getline(fin,line);
+        int pos=line.find(" ");
+
+        Tile t(line.substr(0,pos),stoi(line.substr(pos+1)));
+        tiles.push_back(t);
+    }
+    fin.close();
+
+    //initial seaports
+    fin.open("initialSeaports.txt");
+    if(fin){
+
+        std::string line;
+        getline(fin,line);
+
+        if(line=="anything"){
+
+            seaport s(false,line,1,3);
+        }
+        else{
+
+            seaport s(true,line,1,2);
+        }
+    }
+    fin.close();
 
 }
 
@@ -56,7 +88,7 @@ void Map::addBuildingToTile(std::string info){
     }
 }
 
-std::vector<std::string> Map::moveRobberToTile(int n){
+std::vector<std::string> Map::moveRobberToTile(int n,std::string color){
 
     for(int i=0;i<tiles.size();i++){
 
@@ -66,7 +98,6 @@ std::vector<std::string> Map::moveRobberToTile(int n){
         }
     }
 
-    tiles[n].moveRobberToTile();
-
-    //
+    //get colors to robb from
+    return tiles[n].moveRobberToTile(color);
 }

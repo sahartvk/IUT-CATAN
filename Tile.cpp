@@ -31,17 +31,39 @@ std::string Tile::getCards(std::string color){
     return cardInfo;
 }
 
-std::vector<std::string> Tile::moveRobberToTile(){
+std::vector<std::string> Tile::moveRobberToTile(std::string color){
 
     robberIsHere=true;
-    //rest of the code
+
     //get colors to robb from
+    std::vector<std::string> colors;
+
+    for(int i=0;i<buildings.size();i++){
+
+        if(buildings[i].getColor()!=color)
+            colors.push_back(buildings[i].getColor());
+    }
+
+    return colors;
 }
 
 void Tile::addBuildingToTile(Building b){
 
     //othercodes
-    //not complete if there was a city erase its settlement
+    //if there was a city erase its settlement
+    if(b.getType()=="city"){
+
+        for(int i=0;i<buildings.size();i++){
+
+            if(b.getLocation()==buildings[i].getLocation()){
+
+                std::vector<Building>::iterator it=buildings[i];
+                buildings.erase(it);
+                break;
+            }
+        }
+    }
+
     buildings.push_back(b);
 }
 
