@@ -1,4 +1,5 @@
 QT       += core gui network
+QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -13,6 +14,7 @@ SOURCES += \
     catan3.cpp \
     main.cpp \
     catan.cpp \
+    myclient.cpp \
     playground_3.cpp \
     playground_4.cpp \
     setting.cpp \
@@ -25,6 +27,7 @@ HEADERS += \
     catan1.h \
     catan2.h \
     catan3.h \
+    myclient.h \
     playground_3.h \
     playground_4.h \
     setting.h \
