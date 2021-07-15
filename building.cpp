@@ -1,10 +1,11 @@
 #include<iostream>
-#include<string>
 #include<vector>
 #include"Building.h"
 
 using namespace std;
 
-Building::Building(int _number, BuildingType _type, string _color) { number = _number; type = _type; color = _color; }
+Building::Building(int _number, string _type, string _color) { location = _number; type = _type; color = _color; }
 int Building::getPoint() { return point; }
+int Building::getLocation() { return location; }
 string Building::getColor() { return color; }
+string Building::getType() { return type; }
