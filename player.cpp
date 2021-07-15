@@ -63,19 +63,27 @@ void Player:: update_building (string building) {//string like S 2 | C 5 | R 7
 	while (ss >> word) {
 		b.push_back(word);
 	}
-	
+	int number = stoi(b[1]);
 
+	//number,type,color
 	if (b[0] == "C") {
-		Building city("city");
-		buildings.push_back(city);
+		for (int i = 0; i < buildings.size(); i++) {
+			if (buildings[i].getLocation() == number && buildings[i].getType()=="home") {
+				buildings.erase(buildings.begin() + i);
+				Building city(number, "city", color);
+				buildings.push_back(city);
+
+			}
+		}
+		
 	}
 	if (b[0] == "S") {
-		Building settelment("home");
+		Building settelment(number,"home",color);
 		buildings.push_back(settelment);
 	}
 
 	if (b[0] == "R") {
-		Building road("road");
+		Building road(number,"road",color);
 		buildings.push_back(road);
 	}
 
@@ -110,10 +118,10 @@ vector<string> Player:: can_Buy_Building() {
 	//check road
 	if (wood_cnt >= 1 && brick_cnt >= 1)
 		can_buy.push_back("road");
-        //check settlement
+
 	if (wood_cnt >= 1 && brick_cnt >= 1 && sheap_cnt >= 1 && wheat_cnt >= 1)
 		can_buy.push_back("settlement");
-        //check city
+
 	if (stone_cnt >= 3 && wheat_cnt >= 2)
 		can_buy.push_back("city");
 
