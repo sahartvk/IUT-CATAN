@@ -2,8 +2,8 @@
 
 class Card {
 public:
-	Card(std::string _name);
-private:
-	std::string name;
+	Card(std::string type);
+protected:
+	std::string type;
 
 };
