@@ -5,8 +5,9 @@
 using namespace std;
 
 
-DevelopmentCard::DevelopmentCard( std::string _name,std::string _type) :Card(_name) {
+DevelopmentCard::DevelopmentCard( string _type):Card(_type)  {
 
-	name = _name;
-	type = _type;
+}
+string DevelopmentCard::gettype() {
+	return type;
 }
