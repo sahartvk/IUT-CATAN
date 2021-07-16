@@ -4,8 +4,9 @@
 
 using namespace std;
 
-RecourceCard::RecourceCard(string _type, std::string _name) :Card(_name) {
+RecourceCard::RecourceCard(string _type): Card(_type) {
 
-	type = _type;
-
+}
+string RecourceCard::gettype() {
+	return type;
 }
