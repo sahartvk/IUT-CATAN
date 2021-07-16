@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/prefix1">
         <file>image/hani.png</file>
-        <file>image/WhatsApp Image 2021-07-10 at 12.38.18.jpeg</file>
-        <file>image/start2_2.jpg</file>
         <file>image/player4.jpg</file>
         <file>image/player1.jpg</file>
         <file>image/player2.jpg</file>
@@ -19,7 +17,6 @@
         <file>image/hani6.jpg</file>
         <file>image/hani7.jpg</file>
         <file>image/2602305.png</file>
-        <file>image/background.jpg</file>
         <file>image/Shot 0001.png</file>
         <file>image/Shot 0002.png</file>
         <file>image/hani8.jpg</file>
@@ -38,14 +35,9 @@
         <file>image/wheat.png</file>
         <file>image/wood.png</file>
         <file>image/robber.png</file>
-        <file>image/dice - Copy.png</file>
         <file>image/dice1.png</file>
         <file>image/trade1.png</file>
-        <file>image/end.png</file>
-        <file>image/end1.png</file>
         <file>image/end2.png</file>
-        <file>image/card.png</file>
-        <file>image/card2.png</file>
         <file>image/3338970_business tools_card_credit_atm_atm card_icon.png</file>
         <file>image/trade.jpg</file>
         <file>image/trading.jpg</file>

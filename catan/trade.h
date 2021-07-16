@@ -14,7 +14,11 @@ class trade : public QWidget
 public:
     explicit trade(QWidget *parent = nullptr);
     ~trade();
-
+public slots:
+    void onTrade();
+    void onYour_Resource();
+    void onTheir_Resources();
+    void onOk();
 private:
     Ui::trade *ui;
 };

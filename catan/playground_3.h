@@ -20,7 +20,8 @@ private slots:
     void onDice();
     void onTrade();
     void onEndturn();
-
+    void onRobber();
+    void onOk();
 private:
     Ui::playground_3 *ui;
 };

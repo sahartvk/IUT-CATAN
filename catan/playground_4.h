@@ -14,6 +14,13 @@ class playground : public QMainWindow
 public:
     explicit playground(QWidget *parent = nullptr);
     ~playground();
+public slots:
+    void onDevelopmentcard();
+    void onDice();
+    void onTrade();
+    void onEndturn();
+    void onRobber();
+    void onOk();
 
 private:
     Ui::playground *ui;

@@ -10,7 +10,22 @@ trade::trade(QWidget *parent) :
     ui->trade_with->addItem(QIcon(":/prefix1/image/players.png"),"Trade with Players");
     ui->trade_with->addItem(QIcon(":/prefix1/image/seaport.png"),"Trade with Seaport");
 }
+void trade::onTrade()
+{
 
+}
+void trade::onYour_Resource()
+{
+
+}
+void trade::onTheir_Resources()
+{
+
+}
+void trade::onOk()
+{
+
+}
 trade::~trade()
 {
     delete ui;
