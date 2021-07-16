@@ -5,6 +5,6 @@
 using namespace std;
 
 
-Card::Card(string _name) {
-	name = _name;
+Card::Card(string _type) {
+	type = _type;
 	
