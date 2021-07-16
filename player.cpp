@@ -20,39 +20,45 @@ void Player::update_victorypoint() {
 }
 void Player::update_Developmentcard(string card) {
 	//push_back DEV card in vector
-	DevelopmentCard dev("development_card",card);
+	DevelopmentCard dev(card);
 	development.push_back(dev);
 }
 
-void Player::update_resource(string resource) {
+void Player::update_resource(vector<string> resource) {
 	//split string and update resource  
     //example: 3-wood
+	for (int i = 0; i < resource.size(); i++) {
+		vector<string>u;
+		string T;
+		stringstream X(resource[i]);
+		while (getline(X, T, '-')) {
+			u.push_back(T);
+		}
+		string _count = u[0];
+		string resource = u[1];
 
-	vector<string>u;
-	string T;
-	stringstream X(resource);
-	while (getline(X, T, '-')) {
-		u.push_back(T);
+		int count = stoi(_count);
+		if (resource == "wood") 
+			wood_cnt += count;
+
+
+		if (resource == "sheap")
+			sheap_cnt += count;
+
+		if (resource == "stone")
+			stone_cnt += count;
+
+		if (resource == "brick")
+			brick_cnt += count;
+
+		if (resource == "wheat")
+			wheat_cnt += count;
+
+		for (int i = 0; i != count; ++i) {
+			RecourceCard card(resource);
+			resources.push_back(card);
+		}
 	}
-	string _count = u[0];
-	string resource = u[1];
-
-	int count = stoi(_count);
-	if (resource == "wood")
-		wood_cnt += count;
-
-	if (resource == "sheap")
-		sheap_cnt += count;
-
-	if (resource == "stone")
-		stone_cnt += count;
-
-	if (resource == "brick")
-		brick_cnt += count;
-
-	if (resource == "wheat")
-		wheat_cnt += count;
-
 }
 
 void Player:: update_building (string building) {//string like S 2 | C 5 | R 7
@@ -97,23 +103,8 @@ int Player :: roll_dice () {
 	return(first.getvalue() + second.getvalue());
 }
 
-bool Player:: tradeWithBank (string give, string receive) {
 
-	Trade t(4, 1);
-	t.trading_bank(give, receive);
-}
-
-bool Player::tradeWithPlayers() {  //not complte
-	
-	int a, b;
-	Trade t(a, b);
-	//get vector of resources
-    vector<RecourceCard>t1, t2;
-	t.trading(t1, t2);
-
-}
-
-vector<string> Player:: can_Buy_Building() {
+vector<string> Player:: can_Buy_Building() { //how to make seaport??
 	vector<string>can_buy;
 	//check road
 	if (wood_cnt >= 1 && brick_cnt >= 1)
@@ -135,4 +126,13 @@ bool Player::can_buy_Dev_card() {
 }
 int Player::get_victorypoint() {
 	return victorypoint;
+}
+
+void Player::addseaport(Seaport sp) {
+	seaports.push_back(sp);
+}
+
+int Player::getNumOfResourceCard()
+{
+	return resources.size();
 }
