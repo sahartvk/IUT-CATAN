@@ -9,12 +9,13 @@
 #include "Building.h"
 #include "Tile.h"
 #include "RecourceCard.h"
+#include "Seaport.h"
 using namespace std;
 class Player {
 public:
 	Player(string _color);
 
-	void update_resource(string);
+	void update_resource(vector<string>);
 	void update_building(string);
 	void update_victorypoint();
 	void update_Developmentcard(string);
@@ -24,15 +25,15 @@ public:
 	int roll_dice();
 	void setusername(string);
 	string getusername();
-	bool tradeWithBank(string,string);
-	bool tradeWithPlayers(); //need correction
-	friend class Trade;
+	
+	void addseaport(Seaport sp);
+	int getNumOfResourceCard();
 	
 private:
 	vector<RecourceCard>resources;
 	vector<DevelopmentCard>development;
 	vector<Building>buildings;
-
+	vector<Seaport> seaports;
 	int victorypoint;
 	std::string username;
 	string color;
