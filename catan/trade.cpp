@@ -16,10 +16,6 @@ void trade::onTrade()
 {
 
 }
-void trade::onYour_Resource()
-{
-
-}
 void trade::onTheir_Resources()
 {
 

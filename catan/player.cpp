@@ -17,6 +17,10 @@ void Player::setColor(string _color){
     color=_color;
 }
 
+string  Player::getColor(){
+    return color;
+}
+
 void Player::setusername (string user) {
 	username = user;
 }

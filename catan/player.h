@@ -25,6 +25,8 @@ public:
 	int get_victorypoint();
 	int roll_dice();
 	void setusername(string);
+
+    string  getColor();
 	string getusername();
 	
 	void addseaport(Seaport sp);

@@ -36,6 +36,12 @@ void playground::myWrite(QByteArray& data){
     clientSocket->waitForBytesWritten(-1);
 }
 
+void playground::myWrite(const char* data){
+
+    clientSocket->write(data);
+    clientSocket->waitForBytesWritten(-1);
+}
+
 void playground::myWrite(QString& data){
 
     clientSocket->write(data.toUtf8());
@@ -153,6 +159,24 @@ void playground::deevelopmentcardClicked(){
 void playground::tradeClicked(){
 
     //
+
+}
+
+void playground::tileClicked(){
+
+}
+
+void playground::okClicked(){
+
+    //read for combo box
+
+    //buildingType=ui->building->currentText();
+
+
+    //if( buildingType=="settlement" ||  buildingType=="city")
+        //show and enable vertices
+    //else if( buildingType=="bridge" ||  buildingType=="road")
+        //show and enable edges
 
 }
 

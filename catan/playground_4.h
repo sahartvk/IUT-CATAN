@@ -24,8 +24,11 @@ private:
     QTcpSocket* clientSocket;
 
     void myWrite(QByteArray& data);
+    void myWrite(const char* data);
     void myWrite(QString& data);
     void myRead(QByteArray& data);
+
+    //string BuildingType;
 
 
 public slots:
@@ -40,9 +43,13 @@ public slots:
 
     void verticeClicked();
     void edgeClicked();
+    void tileClicked();
 
     void deevelopmentcardClicked();
     void tradeClicked();
+
+    void okClicked();
+
 };
 
 #endif // PLAYGROUND_4_H

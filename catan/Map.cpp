@@ -47,7 +47,7 @@ std::vector<std::string> Map::getCards(int num,std::string color){
 
     for(int i=0;i<tiles.size();i++){
 
-        if(tiles[i].getNumber()==num){
+        if(tiles[i].getNumber()==num && tiles[i].getRobberIsHere()==false){
 
             std::string temp=tiles[i].getCards(color);
             answer.push_back(temp);
@@ -82,9 +82,9 @@ void Map::addBuildingToTile(std::string info){//s 1:10,9,8-blue
 
         int i;
         if(pos2<0)
-            i=stoi(info);
+            i=std::stoi(info);
         else
-            i=stoi(info.substr(0,pos2));
+            i=std::stoi(info.substr(0,pos2));
 
         tiles[i].addBuildingToTile(b);
 

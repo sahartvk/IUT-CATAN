@@ -1,5 +1,6 @@
- #include "playground_3.h"
+#include "playground_3.h"
 #include "ui_playground_3.h"
+#include<QPushButton>
 
 playground_3::playground_3(QWidget *parent,QTcpSocket* _clientSocket) :
     QMainWindow(parent),
@@ -40,6 +41,12 @@ void playground_3::myWrite(QByteArray& data){
     clientSocket->waitForBytesWritten(-1);
 }
 
+void playground_3::myWrite(const char* data){
+
+    clientSocket->write(data);
+    clientSocket->waitForBytesWritten(-1);
+}
+
 void playground_3::myWrite(QString& data){
 
     clientSocket->write(data.toUtf8());
@@ -65,11 +72,38 @@ void playground_3::readingData(){
 
     QString sdata=data;
 
-       if(sdata.contains("goB")){
-           //get the player a road and a settelment
-           //enable all buttons except dice and trade
+       if(sdata.contains("build:S")){
+
+           int n=ui->building->count();
+           for(int i=0;i<n;i++){
+               ui->building->removeItem(i);
+           }
+           ui->building->addItem(QIcon(":/prefix1/image/3609777.png"),"Settelment");
+
+           //enable and show vertices to put a settlement
+           for(int i=0;i<92;i++){
+               QString str="v";
+               str+=QString::number(i);
+
+
+           }
+
+       }
+       else if(sdata.contains("build:R")){
+
+           int n=ui->building->count();
+           for(int i=0;i<n;i++){
+               ui->building->removeItem(i);
+           }
+           ui->building->addItem(QIcon(":/prefix1/image/3154665.png"),"Road");
+
+           //show enable edges to put a road
        }
        else if(sdata.contains("stop")){
+                  //disable all buttons
+
+       }
+       else if(sdata.contains("stopDice")){
            //disable all buttons
 
 
@@ -120,12 +154,60 @@ void playground_3::readingData(){
        }
        else if(sdata.contains("moveRobber")){
 
+           //show and enable push buttons on tile to choose one of them
+
        }
        else if(sdata.contains("robberToTile")){
 
+           //robberToTile:n
+           std::string str=sdata.toUtf8().constData();
+           int n=std::stoi(str.substr(str.find(":")+1));
+           m->moveRobberToTile(n,p->getColor());
+           //robber is in tile n.update gui and set a robber picture in there
+
        }
-       //else if(s 1:10,9,8-color)
+       else if(sdata.contains("s")){
+           //s 1:10,9,8-color
+
+           std::string str=sdata.toUtf8().constData();
+           m->addBuildingToTile(str);
+
+           //1
+           int n=std::stoi(str.substr(str.find(" "),str.find(":")));
+           //update gui and put a settelment in n position
+
+       }
+       else if(sdata.contains("c")){
+           //c 1:10,9,8-color
+           std::string str=sdata.toUtf8().constData();
+           m->addBuildingToTile(str);
+
+           //1
+           int n=std::stoi(str.substr(str.find(" "),str.find(":")));
+           //update gui and put a city in n position
+
+
+       }
+       else if(sdata.contains("e")){
+           //e 1:color  ????
+
+       }
+       else if(sdata.contains("b")){
+           //b 1:color  ????
+
+
+       }
        else if(sdata.contains("development")){
+
+           //development:name
+
+           std::string str=sdata.toUtf8().constData();
+           string type=str.substr(str.find(":")+1);
+           p->update_Developmentcard(type);
+
+           //how to show develpmwnt cards in gui??????
+           //->>> maybe using a combobox and add name of cards to combo
+           //show development card in gui
 
        }
        else{
@@ -140,13 +222,37 @@ void playground_3::readingData(){
 
 void playground_3::verticeClicked(){
 
+    QPushButton *button = (QPushButton *)sender();
+
+    //button->text();
+
+    //read from file
+    if(buildingType=="settlement"){
+
+        //gui->put a settlement picture in that button
+
+    }
+    if(buildingType=="city"){
+
+        //gui->put a city picture in that button
+    }
+    if(buildingType=="road"){
+
+        //gui->put a road picture in that button
+    }
+    if(buildingType=="bridge"){
+
+        //gui->put a bridge picture in that button
+    }
+
     //initial info
-    QString info;
+    //QString info;
 
-    QString sdata="vertice:";
-    sdata+=info;
 
-    myWrite(sdata);
+    //QString sdata="";
+    //sdata+=info;
+
+    //myWrite(sdata);
 }
 
 void playground_3::edgeClicked(){
@@ -168,11 +274,10 @@ void playground_3::finishTurnClicked(){
 
 void playground_3::diceClicked(){
 
-    //diceroll  initial num
-    int num;
+    int num=p->roll_dice();
     QString info=QString::number(num);
 
-    QString sdata="dice:";
+    QString sdata="diceNum:";
     sdata+=info;
 
     myWrite(sdata);
@@ -180,12 +285,30 @@ void playground_3::diceClicked(){
 
 void playground_3::developmentcardClicked(){
 
-    //
+    myWrite("buyDevelopment");
 
 }
 
 void playground_3::tradeClicked(){
 
     //
+
+}
+
+void playground_3::okClicked(){
+
+    //read for combo box
+
+    //buildingType=ui->building->currentText();
+
+
+    //if( buildingType=="settlement" ||  buildingType=="city")
+        //show and enable vertices
+    //else if( buildingType=="bridge" ||  buildingType=="road")
+        //show and enable edges
+
+}
+
+void playground_3::tileClicked(){
 
 }
