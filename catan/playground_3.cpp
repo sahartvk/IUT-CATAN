@@ -281,6 +281,7 @@ void playground_3::diceClicked(){
     sdata+=info;
 
     myWrite(sdata);
+
 }
 
 void playground_3::developmentcardClicked(){
@@ -291,7 +292,9 @@ void playground_3::developmentcardClicked(){
 
 void playground_3::tradeClicked(){
 
-    //
+    trade* t;
+    t=new trade();
+    t->show();
 
 }
 
