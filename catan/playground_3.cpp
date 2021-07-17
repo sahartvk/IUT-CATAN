@@ -1,4 +1,4 @@
-#include "playground_3.h"
+ #include "playground_3.h"
 #include "ui_playground_3.h"
 
 playground_3::playground_3(QWidget *parent,QTcpSocket* _clientSocket) :
@@ -75,17 +75,48 @@ void playground_3::readingData(){
 
        }
        else if(sdata.contains("rollDice")){
-           //enable dice
+           //activate dice pushbutton
+           //slot of dice button
        }
        else if(sdata.contains("go")){
 
            //enable all buttons except dice
+           std::vector<std::string>temp;
+           temp=p->can_Buy_Building();
+           //add to combo box elements of temp
+           if(p->can_buy_Dev_card()){
+               //add developmentcards to combo box
+               //activate buy dev_cards pushbuttons
+
+           }
+           //activate trade pushbutton
+           //activate endturn pushbutton
+
        }
        else if(sdata.contains("diceNum")){
+
+           std::string str=sdata.toUtf8().constData();
+           int num=std::stoi(str.substr(str.find(":")+1));
+
+           vector<std::string> temp=m->getCards(num,p->getColor());
+           p->update_resource(temp);
 
        }
        else if(sdata.contains("robber")){
 
+            if(p->getNumOfResourceCard()>7){
+                QString temp="Yesrobber";
+                //open robber page and choose cards
+                QString data;
+                //intialize data like (2wood,3 sheap)
+                temp+=data;
+                myWrite(temp);
+
+            }
+            else{
+                QString temp="Norobber";
+                myWrite(temp);
+            }
        }
        else if(sdata.contains("moveRobber")){
 
