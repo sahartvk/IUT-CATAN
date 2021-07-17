@@ -2,6 +2,8 @@
 #define CATAN2_H
 
 #include <QMainWindow>
+#include<QTcpSocket>
+//#include<QByteArray>
 
 namespace Ui {
 class catan2;
@@ -12,7 +14,7 @@ class catan2 : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit catan2(QWidget *parent = nullptr);
+    explicit catan2(QWidget *parent = 0,QTcpSocket* _clientSocket=0);
     ~catan2();
 
 public slots:
@@ -24,6 +26,8 @@ public slots:
 
 private:
     Ui::catan2 *ui;
+
+    QTcpSocket* clientSocket;
 };
 
 #endif // CATAN2_H

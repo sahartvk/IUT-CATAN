@@ -4,11 +4,15 @@
 #include "sign_in.h"
 #include "catan2.h"
 #include <fstream>
-sign_up::sign_up(QWidget *parent) :
+
+sign_up::sign_up(QWidget *parent,QTcpSocket* _clientSocket) :
     QMainWindow(parent),
     ui(new Ui::sign_up)
 {
+    clientSocket=_clientSocket;
+
     ui->setupUi(this);
+
     connect(ui->sign_up_2,SIGNAL(clicked(bool)),this,SLOT(onSign_up()));
     connect(ui->back,SIGNAL(clicked(bool)),this,SLOT(onBack()));
     connect(ui->quit,SIGNAL(clicked(bool)),this,SLOT(onQuit()));

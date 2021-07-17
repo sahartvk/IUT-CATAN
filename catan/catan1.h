@@ -1,7 +1,9 @@
 #ifndef CATAN1_H
 #define CATAN1_H
 
+
 #include <QMainWindow>
+#include<QTcpSocket>
 
 namespace Ui {
 class catan1;
@@ -18,8 +20,13 @@ public:
 public slots:
     void onNext();
 
+    void connectedToServer();
+
 private:
     Ui::catan1 *ui;
+
+    QTcpSocket* clientSocket;
+
 };
 
 #endif // CATAN1_H

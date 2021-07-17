@@ -2,6 +2,9 @@
 #define SIGN_IN_H
 
 #include <QMainWindow>
+#include<QTcpSocket>
+#include<QByteArray>
+
 
 namespace Ui {
 class sign_in;
@@ -12,7 +15,7 @@ class sign_in : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit sign_in(QWidget *parent = nullptr);
+    explicit sign_in(QWidget *parent = nullptr,QTcpSocket* _clientSocket=0);
     ~sign_in();
 
 public slots:
@@ -23,6 +26,8 @@ public slots:
 
 private:
     Ui::sign_in *ui;
+
+    QTcpSocket* clientSocket;
 };
 
 #endif // SIGN_IN_H

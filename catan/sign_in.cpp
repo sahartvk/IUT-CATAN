@@ -5,11 +5,14 @@
 #include <fstream>
 #include <QMessageBox>
 
-sign_in::sign_in(QWidget *parent) :
+sign_in::sign_in(QWidget *parent,QTcpSocket* _clientSocket) :
     QMainWindow(parent),
     ui(new Ui::sign_in)
 {
+    clientSocket=_clientSocket;
+
     ui->setupUi(this);
+
     connect(ui->sign_in_2,SIGNAL(clicked(bool)),this,SLOT(onSign_in()));
     connect(ui->back,SIGNAL(clicked(bool)),this,SLOT(onBack()));
     connect(ui->quit,SIGNAL(clicked(bool)),this,SLOT(onQuit()));
@@ -71,3 +74,4 @@ sign_in::~sign_in()
 {
     delete ui;
 }
+
