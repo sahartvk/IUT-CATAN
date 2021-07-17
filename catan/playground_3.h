@@ -6,6 +6,9 @@
 #include<QTcpSocket>
 #include<QByteArray>
 
+#include"player.h"
+#include"Map.h"
+
 
 namespace Ui {
 class playground_3;
@@ -44,6 +47,9 @@ private:
     void myWrite(QByteArray& data);
     void myWrite(QString& data);
     void myRead(QByteArray& data);
+
+    Map* m;
+    Player* p;
 
 };
 

@@ -14,26 +14,44 @@ SOURCES += \
     catan3.cpp \
     main.cpp \
     catan.cpp \
-    myclient.cpp \
     playground_3.cpp \
     playground_4.cpp \
     setting.cpp \
     sign_in.cpp \
     sign_up.cpp \
-    trade.cpp
+    trade.cpp \
+    robber.cpp \
+    Seaport.cpp \
+    Tile.cpp \
+    Map.cpp \
+    Card.cpp \
+    DevelopmentCard.cpp \
+    dice.cpp \
+    player.cpp \
+    RecoureCard.cpp \
+    building.cpp
 
 HEADERS += \
     catan.h \
     catan1.h \
     catan2.h \
     catan3.h \
-    myclient.h \
     playground_3.h \
     playground_4.h \
     setting.h \
     sign_in.h \
     sign_up.h \
-    trade.h
+    trade.h \
+    robber.h \
+    Seaport.h \
+    Tile.h \
+    Map.h \
+    Card.h \
+    DevelopmentCard.h \
+    dice.h \
+    player.h \
+    RecourceCard.h \
+    building.h
 
 FORMS += \
     catan.ui \
@@ -45,7 +63,8 @@ FORMS += \
     setting.ui \
     sign_in.ui \
     sign_up.ui \
-    trade.ui
+    trade.ui \
+    robber.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

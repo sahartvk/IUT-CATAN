@@ -61,26 +61,47 @@ void playground::readingData(){
 
     QString sdata=data;
 
-    if(sdata=="goB"){
-        //get the player a road and a settelment
-        //enable all buttons except dice and trade
-    }
-    else if(sdata=="stop"){
-        //disable all buttons
-    }
-    else if(sdata=="rollDice"){
-        //enable dice
-    }
-    else if(sdata=="go"){
-        //enable all buttons except dice
-    }
-    else{
-        //update something:
-        //dice
-        //vertice
-        //edge
-        //trade
-    }
+    if(sdata.contains("goB")){
+           //get the player a road and a settelment
+           //enable all buttons except dice and trade
+       }
+       else if(sdata.contains("stop")){
+           //disable all buttons
+       }
+       else if(sdata.contains("rollDice")){
+
+           //enable dice
+
+       }
+       else if(sdata.contains("go")){
+           //enable all buttons except dice
+       }
+       else if(sdata.contains("diceNum")){
+
+       }
+       else if(sdata.contains("robber")){
+
+       }
+       else if(sdata.contains("moveRobber")){
+
+       }
+       else if(sdata.contains("robberToTile")){
+
+       }
+       //else if(s 1:10,9,8-color)
+       //else if(c 1:10,9,8-color)
+       //else if(b 1:10,9,8-color)
+       //else if(r 1:10,9,8-color)
+       else if(sdata.contains("development")){
+
+       }
+       else{
+           //update something:
+           //dice
+           //vertice
+           //edge
+           //trade
+       }
 }
 
 void playground::verticeClicked(){
