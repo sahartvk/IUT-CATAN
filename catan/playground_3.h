@@ -21,6 +21,10 @@ class playground_3 : public QMainWindow
 public:
     explicit playground_3(QWidget *parent = nullptr,QTcpSocket* _clientSocket=0);
     ~playground_3();
+    void Vertice_Connection();
+    void Road_Coneection();
+    void Tile_Connection();
+    void Bridge_Connection();
 
 public slots:
 

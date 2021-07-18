@@ -63,5 +63,9 @@
         <file>image/red city.png</file>
         <file>image/red home.png</file>
         <file>image/red road.png</file>
+        <file>image/bluebridge .png</file>
+        <file>image/greenbridge .png</file>
+        <file>image/redbridge.png</file>
+        <file>image/yellowbridge.png</file>
     </qresource>
 </RCC>
