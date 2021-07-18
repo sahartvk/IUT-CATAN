@@ -86,7 +86,8 @@ void Map::addBuildingToTile(std::string info){//s 1:10,9,8-blue
         else
             i=std::stoi(info.substr(0,pos2));
 
-        tiles[i].addBuildingToTile(b);
+        if(i!=0)
+            tiles[i].addBuildingToTile(b);
 
         info=info.substr(pos2+1);
     }

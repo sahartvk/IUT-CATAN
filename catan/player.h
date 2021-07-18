@@ -10,7 +10,9 @@
 #include "Tile.h"
 #include "RecourceCard.h"
 #include "Seaport.h"
+
 using namespace std;
+
 class Player {
 public:
 	Player(string _color);
@@ -20,8 +22,10 @@ public:
 	void update_building(string);
 	void update_victorypoint();
 	void update_Developmentcard(string);
+
 	vector<string> can_Buy_Building();
 	bool can_buy_Dev_card();
+
 	int get_victorypoint();
 	int roll_dice();
 	void setusername(string);
@@ -42,6 +46,13 @@ public:
     int getWood_cnt();
     int getStone_cnt();
     int getBrick_cnt();
+
+    void buySettlement();
+    void buyCity();
+    void buyRoad();
+    void buyBridge();
+    void buyDevelopment();
+
 	
 private:
 	vector<RecourceCard>resources;

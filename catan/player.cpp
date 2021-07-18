@@ -178,3 +178,97 @@ int Player::getNumOfResourceCard()
 {
 	return resources.size();
 }
+
+void Player::buySettlement(){
+
+    int wd=0,b=0,sh=0,wt=0;
+    for(int i=0;i<resources.size();i++){
+
+        if(resources[i].gettype()=="wood" && wd<1){
+            wd++;
+            wood_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+        else if(resources[i].gettype()=="brick" && b<1){
+            b++;
+            brick_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+        else if(resources[i].gettype()=="sheep" && sh<1){
+            sh++;
+            sheep_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+        else if(resources[i].gettype()=="wheat" && wt<1){
+            wt++;
+            wheat_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+    }
+}
+
+void Player::buyCity(){
+
+    int st=0,wt=0;
+    for(int i=0;i<resources.size();i++){
+
+        if(resources[i].gettype()=="sheep" && st<3){
+            st++;
+            stone_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+        else if(resources[i].gettype()=="wheat" && wt<2){
+            wt++;
+            wheat_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+    }
+}
+
+void Player::buyRoad(){
+
+    int wd=0,b=0;
+    for(int i=0;i<resources.size();i++){
+
+        if(resources[i].gettype()=="wood" && wd<1){
+            wd++;
+            wood_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+        else if(resources[i].gettype()=="brick" && b<1){
+            b++;
+            brick_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+
+    }
+
+}
+
+void Player::buyBridge(){
+
+    buyRoad();
+}
+
+void Player::buyDevelopment(){
+
+    int st=0,sh=0,wt=0;
+    for(int i=0;i<resources.size();i++){
+
+        if(resources[i].gettype()=="wood" && wt<1){
+            wt++;
+            wheat_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+        else if(resources[i].gettype()=="sheep" && sh<1){
+            sh++;
+            sheep_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+        else if(resources[i].gettype()=="wheat" && st<1){
+            st++;
+            stone_cnt--;
+            resources.erase(resources.begin()+i);
+        }
+    }
+}
