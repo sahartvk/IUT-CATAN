@@ -18,13 +18,22 @@ public:
     ~catan3();
 
 public slots:
+
     void onBack();
     void on3Player();
     void on4Player();
+
 private:
     Ui::catan3 *ui;
 
     QTcpSocket* clientSocket;
+
+    void myWrite(const char* data);
+    void myRead(QByteArray& data);
+
+
+    void start3();
+    void start4();
 };
 
 #endif // CATAN3_H

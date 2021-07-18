@@ -42,10 +42,10 @@ void channels::readingData(QByteArray data){
     else if(sdata.contains("signin"))
         signIn(sdata);
 
-    else if(sdata.contains("3"))
+    else if(sdata.contains("3player"))
         _3players(sdata);
 
-    else if(sdata.contains("4"))
+    else if(sdata.contains("4player"))
         _4Players(sdata);
 }
 

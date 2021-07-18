@@ -58,6 +58,10 @@ void PlayThread::giveColor(){
 void PlayThread::game(){
 
 
+    for(int j=0;j<numOfPlayers;j++){
+        myWrite(j,"gameStarted\n");
+    }
+
     //give colors to clients
     giveColor();
 

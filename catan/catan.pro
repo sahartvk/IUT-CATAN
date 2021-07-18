@@ -29,7 +29,9 @@ SOURCES += \
     dice.cpp \
     player.cpp \
     RecoureCard.cpp \
-    building.cpp
+    building.cpp \
+    guide.cpp \
+    last_page.cpp
 
 HEADERS += \
     catan.h \
@@ -51,7 +53,9 @@ HEADERS += \
     dice.h \
     player.h \
     RecourceCard.h \
-    building.h
+    building.h \
+    guide.h \
+    last_page.h
 
 FORMS += \
     catan.ui \
@@ -64,7 +68,9 @@ FORMS += \
     sign_in.ui \
     sign_up.ui \
     trade.ui \
-    robber.ui
+    robber.ui \
+    guide.ui \
+    last_page.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
