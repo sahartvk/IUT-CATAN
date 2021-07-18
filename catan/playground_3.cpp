@@ -751,4 +751,28 @@ void playground_3::tileClicked(){
 
 void playground_3::bridgeClicked(){
 
+    QPushButton *button = (QPushButton *)sender();
+
+    string color=p->getColor();
+    if(color=="red"){
+       button->setIcon(QIcon(":/prefix1/image/redbridge.png"));
+       button->setIconSize(QSize(65,65));
+    }
+    if(color=="blue"){
+       button->setIcon(QIcon(":/prefix1/image/bluebridge .png"));
+       button->setIconSize(QSize(65,65));
+    }
+    if(color=="green"){
+       button->setIcon(QIcon(":/prefix1/image/greenbridge .png"));
+       button->setIconSize(QSize(65,65));
+    }
+    if(color=="yellow"){
+       button->setIcon(QIcon(":/prefix1/image/yellowbridge.png"));
+       button->setIconSize(QSize(65,65));
+    }
+    QString name=button->objectName();
+    string temp=name.toUtf8().constData();
+    int i=stoi(temp.substr(temp.find("b")+1));
+    QString str=QString::number(i);
+    myWrite(str);
 }
