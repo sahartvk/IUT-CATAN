@@ -332,7 +332,13 @@ void playground_3::readingData(){
 
     QString sdata=data;
 
-       if(sdata.contains("build:S")){
+       if(sdata.contains("color")){
+
+           string s=sdata.toUtf8().constData();
+           string color=s.substr(s.find(":")+1);
+           p->setColor(color);
+       }
+       else if(sdata.contains("build:S")){
 
            int n=ui->building->count();
            for(int i=0;i<n;i++)
@@ -524,8 +530,13 @@ void playground_3::readingData(){
 void playground_3::verticeClicked(){
 
     QPushButton *button = (QPushButton *)sender();
+    QString name=button->objectName();
 
-    //button->accessibleName();
+    string temp=name.toUtf8().constData();
+    int i=stoi(temp.substr(temp.find("v")+1));
+
+    //v[i-1]=
+
 
     //read from file
     if(buildingType=="settlement"){
@@ -557,6 +568,12 @@ void playground_3::verticeClicked(){
 }
 
 void playground_3::edgeClicked(){
+
+    QPushButton *button = (QPushButton *)sender();
+    QString name=button->objectName();
+
+    string temp=name.toUtf8().constData();
+    int i=stoi(temp.substr(temp.find("e")+1));
 
     //initial info
     QString info;
@@ -601,18 +618,57 @@ void playground_3::tradeClicked(){
 
 void playground_3::okClicked(){
 
-    //read for combo box
+    //read from combo box
+    buildingType=(ui->building->currentText()).toUtf8().constData();
 
-    //buildingType=ui->building->currentText();
+    if( buildingType=="settlement" ||  buildingType=="city"){
 
+        //enable and show vertices to put a settlement
+        for(int i=0;i<v.size();i++)
+        {
+            v[i]->setEnabled(true);
+            v[i]->setFlat(false);
+        }
+    }
+    else if(buildingType=="road"){
 
-    //if( buildingType=="settlement" ||  buildingType=="city")
-        //show and enable vertices
-    //else if( buildingType=="bridge" ||  buildingType=="road")
-        //show and enable edges
+        //enable and show edges to put a settlement
+        for(int i=0;i<e.size();i++)
+        {
+            e[i]->setEnabled(true);
+            e[i]->setFlat(false);
+        }
+    }
+
+    else if( buildingType=="bridge" ){
+
+        //enable and show edges in the sea to put a settlement
+        for(int i=0;i<b.size();i++)
+        {
+            b[i]->setEnabled(true);
+            b[i]->setFlat(false);
+        }
+    }
 
 }
 
 void playground_3::tileClicked(){
+
+    QPushButton *button = (QPushButton *)sender();
+    QString name=button->objectName();
+
+    string temp=name.toUtf8().constData();
+    int i=stoi(temp.substr(temp.find("t")+1));
+
+    //set robber picture in the tile
+    button->setIcon(QIcon(":/prefix1/image/robber.png"));
+
+    string robberInfo="robberToTile:";
+    robberInfo+=to_string(i);
+    myWrite(robberInfo);
+
+}
+
+void playground_3::bridgeClicked(){
 
 }

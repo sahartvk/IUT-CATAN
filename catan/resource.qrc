@@ -51,5 +51,17 @@
         <file>image/players.png</file>
         <file>image/seaport.png</file>
         <file>image/catan.jpg</file>
+        <file>image/yellow city.png</file>
+        <file>image/yellow home.png</file>
+        <file>image/yellow road.png</file>
+        <file>image/blue city.png</file>
+        <file>image/blue home.png</file>
+        <file>image/blue road.png</file>
+        <file>image/green city.png</file>
+        <file>image/green home.png</file>
+        <file>image/green road.png</file>
+        <file>image/red city.png</file>
+        <file>image/red home.png</file>
+        <file>image/red road.png</file>
     </qresource>
 </RCC>
