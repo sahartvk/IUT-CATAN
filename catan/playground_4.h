@@ -1,10 +1,13 @@
 #ifndef PLAYGROUND_4_H
 #define PLAYGROUND_4_H
 
-#include <QMainWindow>
+#include<QMainWindow>
 #include<QTcpSocket>
 #include<QByteArray>
-
+#include<QPushButton>
+#include<vector>
+#include"player.h"
+#include"Map.h"
 
 namespace Ui {
 class playground;
@@ -17,19 +20,6 @@ class playground : public QMainWindow
 public:
     explicit playground(QWidget *parent = nullptr,QTcpSocket* _clientSocket=0);
     ~playground();
-
-private:
-    Ui::playground *ui;
-
-    QTcpSocket* clientSocket;
-
-    void myWrite(QByteArray& data);
-    void myWrite(const char* data);
-    void myWrite(QString& data);
-    void myRead(QByteArray& data);
-
-    //string BuildingType;
-
 
 public slots:
 
@@ -49,6 +39,18 @@ public slots:
     void tradeClicked();
 
     void okClicked();
+
+private:
+    Ui::playground *ui;
+
+    QTcpSocket* clientSocket;
+    vector<QPushButton*>v,e,b,t;
+    void myWrite(QByteArray& data);
+    void myWrite(const char* data);
+    void myWrite(QString& data);
+    void myRead(QByteArray& data);
+    void initialPushButton();
+    //string BuildingType;
 
 };
 
