@@ -530,33 +530,73 @@ void playground_3::readingData(){
 void playground_3::verticeClicked(){
 
     QPushButton *button = (QPushButton *)sender();
-    QString name=button->objectName();
-
-    string temp=name.toUtf8().constData();
-    int i=stoi(temp.substr(temp.find("v")+1));
-
-    //v[i-1]=
-
-
-    //read from file
-    if(buildingType=="settlement"){
-
-        //gui->put a settlement picture in that button
-
+    QString name = button->objectName();
+    string temp =name.toUtf8().constData();
+    int i = stoi(temp.substr(temp.find("v")+1));
+    if(p->getColor()=="blue")
+    {
+        //read from file
+        if(buildingType=="settlement")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/blue home.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+        if(buildingType=="city")
+        {
+            //gui->put a city picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/blue city.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
     }
-    if(buildingType=="city"){
-
-        //gui->put a city picture in that button
+    else if(p->getColor()=="yellow")
+    {
+        //read from file
+        if(buildingType=="settlement")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/yellow home.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+        if(buildingType=="city")
+        {
+            //gui->put a city picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/yellow city.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
     }
-    if(buildingType=="road"){
-
-        //gui->put a road picture in that button
+    else if(p->getColor()=="red")
+    {
+        //read from file
+        if(buildingType=="settlement")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/red home.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+        if(buildingType=="city")
+        {
+            //gui->put a city picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/red city.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
     }
-    if(buildingType=="bridge"){
-
-        //gui->put a bridge picture in that button
+    else if(p->getColor()=="green")
+    {
+        //read from file
+        if(buildingType=="settlement")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/green home.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+        if(buildingType=="city")
+        {
+            //gui->put a city picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/green city.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
     }
-
     //initial info
     //QString info;
 
@@ -568,12 +608,51 @@ void playground_3::verticeClicked(){
 }
 
 void playground_3::edgeClicked(){
-
+    
     QPushButton *button = (QPushButton *)sender();
-    QString name=button->objectName();
-
-    string temp=name.toUtf8().constData();
-    int i=stoi(temp.substr(temp.find("e")+1));
+    QString name = button->objectName();
+    string temp =name.toUtf8().constData();
+    int i = stoi(temp.substr(temp.find("v")+1));
+    if(p->getColor()=="blue")
+    {
+        //read from file
+        if(buildingType=="road")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/blue road.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(p->getColor()=="yellow")
+    {
+        //read from file
+        if(buildingType=="road")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/yellow road.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(p->getColor()=="red")
+    {
+        //read from file
+        if(buildingType=="road")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/red road.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(p->getColor()=="green")
+    {
+        //read from file
+        if(buildingType=="road")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/green road.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+    }
 
     //initial info
     QString info;
@@ -583,6 +662,7 @@ void playground_3::edgeClicked(){
 
     myWrite(sdata);
 }
+
 
 void playground_3::finishTurnClicked(){
 
