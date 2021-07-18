@@ -3,7 +3,7 @@
 #include "sign_in.h"
 #include "sign_up.h"
 #include "setting.h"
-
+#include "guide.h"
 catan2::catan2(QWidget *parent,QTcpSocket* _clientSocket) :
     QMainWindow(parent),
     ui(new Ui::catan2)
@@ -32,13 +32,15 @@ void catan2::onSign_up()
 }
 void catan2::onSetting()
 {
-    setting *se=new setting;
+    setting *se=new setting(0,clientSocket);
     se->show();
     this->close();
 }
 void catan2::onGuide()
 {
-
+    Guide *g=new Guide(0,clientSocket);
+    g->show();
+    this->close();
 }
 void catan2::onQuit()
 {
