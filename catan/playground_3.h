@@ -1,11 +1,11 @@
 #ifndef PLAYGROUND_3_H
-
 #define PLAYGROUND_3_H
 
-#include <QMainWindow>
+#include<QMainWindow>
 #include<QTcpSocket>
 #include<QByteArray>
-
+#include<QPushButton>
+#include<vector>
 #include"player.h"
 #include"Map.h"
 
@@ -46,13 +46,15 @@ private:
     Ui::playground_3 *ui;
 
     QTcpSocket* clientSocket;
-
+    vector<QPushButton*>v,e,b,t;
     void myWrite(QByteArray& data);
     void myWrite(const char* data);
     void myWrite(QString& data);
     void myRead(QByteArray& data);
+    void initialPushButton();
 
     string buildingType;
+
 
     Map* m;
     Player* p;
