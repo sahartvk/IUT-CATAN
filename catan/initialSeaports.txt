@@ -1,0 +1,9 @@
+wheat
+brick
+sheep
+stone
+wood
+anything
+anything
+anything
+anything
