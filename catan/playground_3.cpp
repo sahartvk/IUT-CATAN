@@ -374,33 +374,33 @@ void playground_3::readingData(){
        }
        else if(sdata.contains("stop")){
            //disable all buttons
-           for(int i=0;i<117;i++)
+           for(int i=0;i<e.size();i++)
            {
                e[i]->setEnabled(false);
                e[i]->setFlat(true);
            }
-           for(int i=0;i<92;i++)
+           for(int i=0;i<v.size();i++)
            {
                v[i]->setEnabled(false);
                v[i]->setFlat(true);
            }
-           for(int i=0;i<13;i++)
+           for(int i=0;i<b.size();i++)
            {
                b[i]->setEnabled(false);
                b[i]->setFlat(true);
            }
-           for(int i=0;i<28;i++)
+           for(int i=0;i<t.size();i++)
            {
                t[i]->setEnabled(false);
                t[i]->setFlat(true);
            }
+           
            ui->trade->setEnabled(false);
            ui->developmentcard->setEnabled(false);
            ui->ok->setEnabled(false);
            ui->trade->setEnabled(false);
            ui->end->setEnabled(true);
-           //slot of endturn
-           finishTurnClicked();
+           
        }
        else if(sdata.contains("stopDice")){
            //disable all buttons
@@ -409,25 +409,45 @@ void playground_3::readingData(){
        else if(sdata.contains("rollDice")){
            //activate dice pushbutton
            ui->dice->setEnabled(true);
-           //slot of dice button
-           diceClicked();
+           
        }
        else if(sdata.contains("go")){
 
-           //enable all buttons except dice
-           std::vector<std::string>temp;
+           //buildings
+           std::vector<std::string> temp;
            temp=p->can_Buy_Building();
-           //add to combo box elements of temp
-           if(p->can_buy_Dev_card()){
-               //add developmentcards to combo box
-               //activate buy dev_cards pushbuttons
-               ui->developmentcard->setEnabled(true);
+
+           //remove combo elements
+           int n=ui->building->count();
+           for(int i=0;i<n;i++){
+               ui->building->removeItem(i);
+           }
+
+           //add elements that can buy to combo box
+           for(int i=0;i<temp.size();i++){
+
+               if(temp[i]=="Settelment")
+                   ui->building->addItem(QIcon(":/prefix1/image/3609777.png"),"Settelment");
+               else if(temp[i]=="Road")
+                   ui->building->addItem(QIcon(":/prefix1/image/3154665.png"),"Road");
+               else if(temp[i]=="City")
+                   ui->building->addItem(QIcon(":/prefix1/image/3916977.png"),"City");
+               else if(temp[i]=="Bridge")
+                   ui->building->addItem(QIcon(":/prefix1/image/4827397.png"),"Bridge");
 
            }
-           //activate trade pushbutton
-           ui->trade->setEnabled(true);
-           //activate endturn pushbutton
-           ui->end->setEnabled(true);
+
+           if(p->can_buy_Dev_card()){
+               //activate buy dev_cards pushbuttons
+               ui->developmentcard->setDisabled(false);
+
+           }
+
+           //activate several pushbuttons
+           ui->trade->setDisabled(false);
+           ui->end->setDisabled(false);
+           ui->ok->setEnabled(false);
+
 
        }
        else if(sdata.contains("diceNum")){
