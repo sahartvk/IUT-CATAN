@@ -30,7 +30,7 @@ int Player::getTurn(){
 }
 
 int Player::getSheep_cnt(){
-    return sheap_cnt;
+    return sheep_cnt;
 }
 
 int Player::getWheat_cnt(){
@@ -152,7 +152,7 @@ vector<string> Player:: can_Buy_Building() { //how to make seaport??
 	if (wood_cnt >= 1 && brick_cnt >= 1)
 		can_buy.push_back("road");
 
-	if (wood_cnt >= 1 && brick_cnt >= 1 && sheap_cnt >= 1 && wheat_cnt >= 1)
+    if (wood_cnt >= 1 && brick_cnt >= 1 && sheep_cnt >= 1 && wheat_cnt >= 1)
 		can_buy.push_back("settlement");
 
 	if (stone_cnt >= 3 && wheat_cnt >= 2)
@@ -162,7 +162,7 @@ vector<string> Player:: can_Buy_Building() { //how to make seaport??
 
 }
 bool Player::can_buy_Dev_card() {
-	if (stone_cnt >= 1 && sheap_cnt >= 1 && wheat_cnt >= 1)
+    if (stone_cnt >= 1 && sheep_cnt >= 1 && wheat_cnt >= 1)
 		return true;
 	return false;
 }
