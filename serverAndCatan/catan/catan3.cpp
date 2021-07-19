@@ -40,10 +40,12 @@ void catan3::on3Player()
 {
 //    myWrite("3player\n");
 
-    QByteArray data;
+
 
     ui->waiting->setText("waiting");
 
+
+    QByteArray data;
     myRead(data);
     if(data.contains("gameStarted")){
         start3();

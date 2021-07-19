@@ -34,25 +34,25 @@ private:
     QTcpServer* myserver;
 
     //std::vector<channels *> connections;
-    //std::vector<PlayThread *> pt;
-    //std::vector<Player*> players;
-    std::vector<QTcpSocket*> sockets;
+    std::vector<PlayThread *> pt;
+    std::vector<Player*> players;
+//    std::vector<QTcpSocket*> sockets;
 
 
-    int numOfPlayers;
+//    int numOfPlayers;
 
-    void myWrite(int i,QByteArray& data);
-    void myWrite(int i,const char* data);
-    void myWrite(int i,QString& data);
-    void myRead(int i,QByteArray& data);
+//    void myWrite(int i,QByteArray& data);
+//    void myWrite(int i,const char* data);
+//    void myWrite(int i,QString& data);
+//    void myRead(int i,QByteArray& data);
 
-    void beginingOfTheGame(int i);
-    void restOfTheGame();
-    void giveColor();
+//    void beginingOfTheGame(int i);
+//    void restOfTheGame();
+//    void giveColor();
 
-    QString getDevelopmentCard();
+//    QString getDevelopmentCard();
 
-    std::vector<std::string> colors;
+//    std::vector<std::string> colors;
 
 
 
@@ -69,8 +69,9 @@ signals:
 public slots:
 
     void newConnectionSlot();
+    void newPlayThread();
 
-     void game();
+    // void game();
     //void newPlayThread();
 };
 #endif // SERVER_H
