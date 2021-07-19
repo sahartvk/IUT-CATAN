@@ -1,0 +1,71 @@
+<RCC>
+    <qresource prefix="/prefix1">
+        <file>image/hani.png</file>
+        <file>image/player4.jpg</file>
+        <file>image/player1.jpg</file>
+        <file>image/player2.jpg</file>
+        <file>image/player3.jpg</file>
+        <file>image/hani2.jpg</file>
+        <file>image/hani3.jpg</file>
+        <file>image/setting.png</file>
+        <file>image/21504-middle.png</file>
+        <file>image/hani4.jpg</file>
+        <file>image/hani5.jpg</file>
+        <file>image/catan-background_citiesandknights_sm.jpg</file>
+        <file>image/catan-background_lotc_sm.jpg</file>
+        <file>image/catan-background_seafarers_sm_0.jpg</file>
+        <file>image/hani6.jpg</file>
+        <file>image/hani7.jpg</file>
+        <file>image/2602305.png</file>
+        <file>image/Shot 0001.png</file>
+        <file>image/Shot 0002.png</file>
+        <file>image/hani8.jpg</file>
+        <file>image/hani10.jpg</file>
+        <file>image/hani11.jpg</file>
+        <file>image/hani12.jpg</file>
+        <file>image/hani13.jpg</file>
+        <file>image/3154665.png</file>
+        <file>image/3609777.png</file>
+        <file>image/3916977.png</file>
+        <file>image/4827397.png</file>
+        <file>image/hani9.jpg</file>
+        <file>image/brick1.png</file>
+        <file>image/shaep.png</file>
+        <file>image/stone.png</file>
+        <file>image/wheat.png</file>
+        <file>image/wood.png</file>
+        <file>image/robber.png</file>
+        <file>image/dice1.png</file>
+        <file>image/trade1.png</file>
+        <file>image/end2.png</file>
+        <file>image/3338970_business tools_card_credit_atm_atm card_icon.png</file>
+        <file>image/trade.jpg</file>
+        <file>image/trading.jpg</file>
+        <file>image/trade.png</file>
+        <file>image/wheat1.png</file>
+        <file>image/sheap.png</file>
+        <file>image/wood1.png</file>
+        <file>image/stone1.png</file>
+        <file>image/brick2.png</file>
+        <file>image/bank.png</file>
+        <file>image/players.png</file>
+        <file>image/seaport.png</file>
+        <file>image/catan.jpg</file>
+        <file>image/yellow city.png</file>
+        <file>image/yellow home.png</file>
+        <file>image/yellow road.png</file>
+        <file>image/blue city.png</file>
+        <file>image/blue home.png</file>
+        <file>image/blue road.png</file>
+        <file>image/green city.png</file>
+        <file>image/green home.png</file>
+        <file>image/green road.png</file>
+        <file>image/red city.png</file>
+        <file>image/red home.png</file>
+        <file>image/red road.png</file>
+        <file>image/bluebridge .png</file>
+        <file>image/greenbridge .png</file>
+        <file>image/redbridge.png</file>
+        <file>image/yellowbridge.png</file>
+    </qresource>
+</RCC>
