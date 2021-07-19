@@ -6,6 +6,7 @@ myServer::myServer(QWidget *parent)
     : QMainWindow(parent)
 {
 
+    count=0;
 
     myserver=new QTcpServer();
     myserver->listen(QHostAddress::Any,8080);
@@ -17,9 +18,12 @@ myServer::myServer(QWidget *parent)
         connect(myserver,SIGNAL(newConnection()),this,SLOT(newConnectionSlot()));
     }
 
-    if(players.size()==3){
+//    if(players.size()==3){
+//        emit enoughPlayers();
+//    }
+
+    if(count==3)
         emit enoughPlayers();
-    }
 
     connect(this,SIGNAL(enoughPlayers()),this,SLOT(newPlayThread()));
 
@@ -29,6 +33,7 @@ void myServer::newPlayThread(){
 
     PlayThread* _pt=new PlayThread(players);
     pt.push_back(_pt);
+
 
 }
 
@@ -40,9 +45,20 @@ void myServer::newConnectionSlot(){
     Player* p=new Player(myserver->nextPendingConnection());
     players.push_back(p);
 
-    if(players.size()==3){
+    QByteArray data;
+    while(!p->socket->waitForReadyRead(-1));
+    data=p->socket->readAll();
+    QString Qdata=data;
+
+    if(Qdata.contains("3player"))
+        count++;
+
+//    if(players.size()==3){
+//        emit enoughPlayers();
+//    }
+
+    if(count==3)
         emit enoughPlayers();
-    }
 
     //QTcpSocket* sock=new QTcpSocket(myserver->nextPendingConnection());
 

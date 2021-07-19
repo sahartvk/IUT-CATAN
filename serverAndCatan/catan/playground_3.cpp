@@ -9,6 +9,7 @@ playground_3::playground_3(QTcpSocket*& _clientSocket,QWidget *parent) :
 {
     clientSocket=_clientSocket;
 
+    myWrite("started\n");
     ui->setupUi(this);
 
     //make vector of push buttons
@@ -357,6 +358,10 @@ void playground_3::readingData(){
                p->setTurn(3);
            else if(color=="red")
                p->setTurn(4);
+
+           myWrite("color");
+
+
        }
        else if(sdata.contains("build:S")){
 

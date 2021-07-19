@@ -62,8 +62,17 @@ void PlayThread::game(){
         myWrite(j,"gameStarted\n");
     }
 
+    QByteArray temp;
+    for(int j=0;j<numOfPlayers;j++){
+        myRead(j,temp);
+    }
+
     //give colors to clients
     giveColor();
+
+    for(int j=0;j<numOfPlayers;j++){
+        myRead(j,temp);
+    }
 
     //123
     for(int i=0;i<numOfPlayers;i++) {
@@ -86,7 +95,7 @@ void PlayThread::beginingOfTheGame(int i){
 
     myWrite(i,"build:S");
     myRead(i,data);
-    (i,"stop");
+    myWrite(i,"stop");
     for(int j=0;j<numOfPlayers;j++){
 
         if(i!=j){

@@ -55,6 +55,7 @@ private:
 //    std::vector<std::string> colors;
 
 
+    int count;
 
 signals:
     //???

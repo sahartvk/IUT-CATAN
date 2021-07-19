@@ -38,15 +38,14 @@ void catan3::onBack()
 }
 void catan3::on3Player()
 {
-//    myWrite("3player\n");
 
-
+    myWrite("3player\n");
 
     ui->waiting->setText("waiting");
 
-
     QByteArray data;
     myRead(data);
+
     if(data.contains("gameStarted")){
         start3();
     }
@@ -70,6 +69,7 @@ void catan3::on4Player()
 
 void catan3::start3(){
 
+    myWrite("started\n");
     playground_3 *p3=new playground_3(clientSocket,0);
     p3->show();
     this->close();

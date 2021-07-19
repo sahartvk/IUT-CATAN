@@ -11,10 +11,11 @@ class Player
 private:
     QString username;
     int gameType;
-    QTcpSocket* socket;
+
 
 public:
 
+    QTcpSocket* socket;
     friend class PlayThread;
     friend class server;
 
