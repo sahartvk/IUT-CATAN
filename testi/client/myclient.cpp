@@ -1,4 +1,7 @@
 #include "myclient.h"
+#include<string>
+#include<stdlib.h>
+#include<time.h>
 
 myClient::myClient(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +18,7 @@ myClient::myClient(QWidget *parent)
 
     connect(pbnConnect,SIGNAL(clicked()),this,SLOT(connectToServer()));
 
+    count =0;
 }
 
 myClient::~myClient()
@@ -35,24 +39,39 @@ void myClient::connectToServer(){
 void myClient::readingData(){
 
     QByteArray data=clientSocket->readAll();
+    ted->append(QString::number(count));
+    ted->append("ted append color:");
+    ted->append(color);
     ted->append(data);
+    ted->append("-------------");
 
+    count++;
+
+    srand(time(0));
 
     QString sdata=data;
 
-      if(sdata.contains("color")){
+      if(sdata.contains("ininitalColor")){
 
           //myWrite("color");
-
+          std::string str=sdata.toUtf8().constData();
+          str=str.substr(str.find(":")+1);
+          QString qstr = QString::fromStdString(str);
+          color=qstr;
      }
       else if(sdata.contains("build:S")){
 
-          clientSocket->write("s");
+          QByteArray a=color.toUtf8();
+          a+=":s";
+          clientSocket->write(a);
           while(clientSocket->waitForBytesWritten(-1));
 
       }
       else if(sdata.contains("build:R")){
-          clientSocket->write("s");
+
+          QByteArray a=color.toUtf8();
+          a+=":r";
+          clientSocket->write(a);
           while(clientSocket->waitForBytesWritten(-1));
 
       }
@@ -61,16 +80,35 @@ void myClient::readingData(){
       }
       else if(sdata.contains("rollDice")){
 
-          clientSocket->write("5");
+          int n=(rand()%20)+1;
+          QString temp="diceNum:";
+          temp+=QString::number(n);
+
+          QByteArray a=temp.toUtf8();
+          clientSocket->write(a);
           while(clientSocket->waitForBytesWritten(-1));
       }
       else if(sdata.contains("go")){
 
-          clientSocket->write("finish");
-          while(clientSocket->waitForBytesWritten(-1));
+          static int a=0;
 
+          if(a==0){
+              clientSocket->write("v5");
+              while(clientSocket->waitForBytesWritten(-1));
+          }
+          else{
+              clientSocket->write("finish");
+              while(clientSocket->waitForBytesWritten(-1));
+          }
+
+          a++;
 
       }
+//      else if(sdata.contains("diceNum")){
+
+//          clientSocket->write("5");
+//          while(clientSocket->waitForBytesWritten(-1));
+//      }
       else if(sdata.contains("robber")){
 
           clientSocket->write("No");

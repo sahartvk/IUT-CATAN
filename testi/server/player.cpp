@@ -8,19 +8,19 @@ Player::Player(QTcpSocket* _sock)
 void Player::myWrite(QByteArray& data){
 
     socket->write(data);
-    socket->waitForBytesWritten(-1);
+    while(socket->waitForBytesWritten(-1));
 }
 
 void Player::myWrite(QString& data){
 
      socket->write(data.toUtf8());
-     socket->waitForBytesWritten(-1);
+     while(socket->waitForBytesWritten(-1));
 }
 
 void Player::myWrite(const char* data){
 
     socket->write(data);
-    socket->waitForBytesWritten(-1);
+    while(socket->waitForBytesWritten(-1));
 }
 
 

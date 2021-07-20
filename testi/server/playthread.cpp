@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include<vector>
+#include<windows.h>
 
 PlayThread::PlayThread(std::vector<Player*>& _players)
 {
@@ -28,7 +29,7 @@ void PlayThread::run(){
 void PlayThread::giveColor(){
 
     for(int j=0;j<numOfPlayers;j++){
-        std::string temp="color:";
+        std::string temp="ininitalColor:";
         temp+=colors[j];
         QString Qtemp=QString::fromStdString(temp);
 
@@ -62,15 +63,20 @@ void PlayThread::game(){
     //123
     qDebug()<<"beginingOfTheGame\n";
     for(int i=0;i<numOfPlayers;i++) {
+        Sleep(uint(1000));
         beginingOfTheGame(i);
     }
+
+    Sleep(uint(2000));
 
     //321
-    qDebug()<<"beginingOfTheGame\n";
+   qDebug()<<"beginingOfTheGame\n";
     for(int i=numOfPlayers-1;i>=0;i--) {
+        Sleep(uint(3000));
         beginingOfTheGame(i);
     }
 
+    Sleep(uint(1000));
     qDebug()<<"restOfTheGame\n";
     restOfTheGame();
 }
@@ -91,6 +97,8 @@ void PlayThread::beginingOfTheGame(int i){
         }
     }
 
+    //???
+    Sleep(uint(1000));
 
     QByteArray data2;
 
@@ -119,15 +127,17 @@ void PlayThread::dicePart(int i){
     players[i]->myRead(data1);
     players[i]->myWrite("stopDice");
 
+    Sleep(uint(500));
+
     if(data1.contains("diceNum:7")){
 
         for(int j=0;j<numOfPlayers;j++)
-            players[i]->myWrite("robber");
+            players[j]->myWrite("robber");
 
         for(int j=0;j<numOfPlayers;j++){
             QByteArray data2;
 
-            players[i]->myRead(data2);
+            players[j]->myRead(data2);
 
             //QString s=data3;
             //if(s.contains("Yes"))
@@ -147,7 +157,7 @@ void PlayThread::dicePart(int i){
     else{
         for(int j=0;j<numOfPlayers;j++){
             //== or !=  ???
-            players[i]->myWrite(data1);
+            players[j]->myWrite(data1);
         }
     }
 
@@ -195,6 +205,7 @@ void PlayThread::buildPart(int i){
 
 
         players[i]->myWrite("stop");
+        Sleep(uint(500));
     }
 
     qDebug()<<"end of the building part\n";
@@ -208,6 +219,8 @@ void PlayThread::restOfTheGame(){
     for(int i=0;i<numOfPlayers;i++){
 
         dicePart(i);
+
+        Sleep(uint(1000));
 
         buildPart(i);
 

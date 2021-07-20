@@ -21,6 +21,9 @@ private:
     QTcpSocket* clientSocket;
     QWidget* center;
 
+    int count;
+    QString color;
+
 public slots:
     void connectToServer();
     void readingData();
