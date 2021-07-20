@@ -29,7 +29,7 @@ void PlayThread::run(){
 void PlayThread::giveColor(){
 
     for(int j=0;j<numOfPlayers;j++){
-        std::string temp="ininitalColor:";
+        std::string temp="initialColor:";
         temp+=colors[j];
         QString Qtemp=QString::fromStdString(temp);
 
