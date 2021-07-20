@@ -14,7 +14,7 @@ class setting : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit setting(QWidget *parent = nullptr,QTcpSocket* _clientSocket=0);
+    explicit setting(QWidget *parent = nullptr);
     ~setting();
 
 public slots:
@@ -22,7 +22,7 @@ public slots:
 
 private:
     Ui::setting *ui;
-    QTcpSocket* clientSocket;
+
 };
 
 #endif // SETTING_H

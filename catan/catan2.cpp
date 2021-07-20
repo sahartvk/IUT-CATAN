@@ -4,11 +4,10 @@
 #include "sign_up.h"
 #include "setting.h"
 #include "guide.h"
-catan2::catan2(QWidget *parent,QTcpSocket* _clientSocket) :
+catan2::catan2(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::catan2)
 {
-    clientSocket=_clientSocket;
 
     ui->setupUi(this);
 
@@ -20,25 +19,25 @@ catan2::catan2(QWidget *parent,QTcpSocket* _clientSocket) :
 }
 void catan2::onSign_in()
 {
-    sign_in *si=new sign_in(0,clientSocket);
+    sign_in *si=new sign_in;
     si->show();
     this->close();
 }
 void catan2::onSign_up()
 {
-    sign_up *su=new sign_up(0,clientSocket);
+    sign_up *su=new sign_up;
     su->show();
     this->close();
 }
 void catan2::onSetting()
 {
-    setting *se=new setting(0,clientSocket);
+    setting *se=new setting;
     se->show();
     this->close();
 }
 void catan2::onGuide()
 {
-    Guide *g=new Guide(0,clientSocket);
+    Guide *g=new Guide;
     g->show();
     this->close();
 }

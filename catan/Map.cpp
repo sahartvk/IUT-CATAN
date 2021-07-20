@@ -1,5 +1,8 @@
 #include "Map.h"
 #include<fstream>
+#include<string>
+
+using namespace std;
 
 
 Map::Map()
@@ -73,7 +76,8 @@ void Map::addBuildingToTile(std::string info){//s 1:10,9,8-blue
 
     Building b(location,type,color);
 
-    info=info.substr(info.find(":")+1,info.find("-"));
+    info=info.substr(info.find(":")+1);
+    info=info.substr(0,info.find("-"));
 
     int pos2=info.find(",");
     while(pos2>=0){

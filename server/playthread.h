@@ -28,10 +28,15 @@ private:
 
     std::vector<std::string> colors;
 
+    void dicePart(int i);
+    void buildPart(int i);
+
+
 public:
 
-    explicit PlayThread(std::vector<Player*> _players);
+    explicit PlayThread(std::vector<Player*>& _players);
 
+    void run();
     ~PlayThread();
 
 };

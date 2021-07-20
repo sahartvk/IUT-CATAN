@@ -5,11 +5,10 @@
 #include "catan2.h"
 #include <fstream>
 
-sign_up::sign_up(QWidget *parent,QTcpSocket* _clientSocket) :
+sign_up::sign_up(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::sign_up)
 {
-    clientSocket=_clientSocket;
 
     ui->setupUi(this);
 

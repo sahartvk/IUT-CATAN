@@ -14,14 +14,18 @@ class catan3 : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit catan3(QWidget *parent = nullptr,QTcpSocket* _clientSocket=0);
+    explicit catan3(QWidget *parent = nullptr);
     ~catan3();
 
 public slots:
 
     void onBack();
+
     void on3Player();
     void on4Player();
+
+    void connectedToServer3();
+    void connectedToServer4();
 
 private:
     Ui::catan3 *ui;
@@ -32,8 +36,6 @@ private:
     void myRead(QByteArray& data);
 
 
-    void start3();
-    void start4();
 };
 
 #endif // CATAN3_H

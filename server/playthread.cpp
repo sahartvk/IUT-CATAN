@@ -2,8 +2,9 @@
 #include<stdlib.h>
 #include<time.h>
 #include<vector>
+#include<windows.h>
 
-PlayThread::PlayThread(std::vector<Player*> _players)
+PlayThread::PlayThread(std::vector<Player*>& _players)
 {
 
     //?? is it ok????
@@ -16,180 +17,232 @@ PlayThread::PlayThread(std::vector<Player*> _players)
     colors.push_back("yellow");
     colors.push_back("red");
 
-    t=std::thread(&PlayThread::game,this);
+    //t=std::thread(&PlayThread::game,this);
 
 }
 
-void PlayThread::myWrite(int i,QByteArray& data){
+void PlayThread::run(){
 
-    players[i]->socket->write(data);
-    players[i]->socket->waitForBytesWritten(-1);
-}
-
-void PlayThread::myWrite(int i,QString& data){
-
-     players[i]->socket->write(data.toUtf8());
-     players[i]->socket->waitForBytesWritten(-1);
-}
-
-void PlayThread::myWrite(int i,const char* data){
-
-    players[i]->socket->write(data);
-    players[i]->socket->waitForBytesWritten(-1);
-}
-
-
-void PlayThread::myRead(int i,QByteArray& data){
-
-    while(!players[i]->socket->waitForReadyRead(-1));
-    data=players[i]->socket->readAll();
+    game();
 }
 
 void PlayThread::giveColor(){
 
     for(int j=0;j<numOfPlayers;j++){
-        std::string temp="color:";
+        std::string temp="ininitalColor:";
         temp+=colors[j];
         QString Qtemp=QString::fromStdString(temp);
-        myWrite(j,Qtemp);
+
+        players[j]->myWrite(Qtemp);
     }
 }
 
 void PlayThread::game(){
 
 
-    for(int j=0;j<numOfPlayers;j++){
-        myWrite(j,"gameStarted\n");
-    }
+//    for(int j=0;j<numOfPlayers;j++){
+//        players[j]->myWrite("gameStarted\n");
+//    }
+
+
+//    for(int j=0;j<numOfPlayers;j++){
+//        QByteArray temp;
+//        players[j]->myRead(temp);
+//    }
 
     //give colors to clients
+    qDebug()<<"give color\n";
     giveColor();
 
+//    for(int j=0;j<numOfPlayers;j++){
+
+//        QByteArray temp;
+//        players[j]->myRead(temp);
+//    }
+
     //123
+    qDebug()<<"beginingOfTheGame\n";
     for(int i=0;i<numOfPlayers;i++) {
+        Sleep(uint(1000));
         beginingOfTheGame(i);
     }
+
+    Sleep(uint(2000));
 
     //321
-    for(int i=numOfPlayers;i>0;i--) {
+   qDebug()<<"beginingOfTheGame\n";
+    for(int i=numOfPlayers-1;i>=0;i--) {
+        Sleep(uint(3000));
         beginingOfTheGame(i);
     }
 
+    Sleep(uint(1000));
+    qDebug()<<"restOfTheGame\n";
     restOfTheGame();
 }
 
 void PlayThread::beginingOfTheGame(int i){
 
-    QByteArray data;
-    //(i,"goB");
+    QByteArray data1;
 
+    players[i]->myWrite("build:S");
+    players[i]->myRead(data1);
+    players[i]->myWrite("stop");
 
-    myWrite(i,"build:S");
-    myRead(i,data);
-    (i,"stop");
+    qDebug() <<data1;
+
     for(int j=0;j<numOfPlayers;j++){
 
         if(i!=j){
 
-                myWrite(j,data);
+            players[j]->myWrite(data1);
         }
     }
+    qDebug() <<"wrote to clients";
+    //???
+    Sleep(uint(1000));
 
+    QByteArray data2;
 
-    myWrite(i,"build:R");
-    myRead(i,data);
-    (i,"stop");
+    players[i]->myWrite("build:R");
+    players[i]->myRead(data2);
+    players[i]->myWrite("stop");
+
+    qDebug() <<data2;
+
     for(int j=0;j<numOfPlayers;j++){
 
         if(i!=j){
 
-                myWrite(j,data);
+            players[j]->myWrite(data2);
         }
     }
+
+    qDebug() <<"wrote to clients";
+}
+
+void PlayThread::dicePart(int i){
+
+    qDebug()<<"dice part\n";
+
+    QByteArray data1;
+
+    //read dice number
+    players[i]->myWrite("rollDice");
+    players[i]->myRead(data1);
+    players[i]->myWrite("stopDice");
+
+    qDebug() <<data1;
+
+    Sleep(uint(500));
+
+    if(data1.contains("diceNum:7")){
+
+        for(int j=0;j<numOfPlayers;j++)
+            players[j]->myWrite("robber");
+
+        for(int j=0;j<numOfPlayers;j++){
+            QByteArray data2;
+
+            players[j]->myRead(data2);
+
+            //QString s=data3;
+            //if(s.contains("Yes"))
+                //add s to bank
+        }
+
+        QByteArray data3;
+        players[i]->myWrite("moveRobber");
+        players[i]->myRead(data3);
+        for(int j=0;j<numOfPlayers;j++){
+            if(i!=j)
+                players[j]->myWrite(data3);
+        }
+
+    }
+
+    else{
+        for(int j=0;j<numOfPlayers;j++){
+            //== or !=  ???
+            players[j]->myWrite(data1);
+        }
+
+        qDebug() <<"wrote to clients";
+    }
+
+}
+
+void PlayThread::buildPart(int i){
+
+
+    qDebug()<<"building started\n";
+
+    while(1){
+        QByteArray data1;
+
+        players[i]->myWrite("go");
+
+        players[i]->myRead(data1);
+
+        qDebug() <<data1;
+
+        if(data1.contains("finish")){
+
+            players[i]->myWrite("stop");
+
+            qDebug() <<"finish";
+
+            break;
+        }
+
+        else if(data1.contains("buyDevelopment")){
+
+            QByteArray data2;
+            data2="davelopment";
+
+            //choose a random development card
+            data2+=getDevelopmentCard();
+
+            players[i]->myWrite(data2);
+        }
+
+        //else if(data1.contains("trade"))
+
+        else{
+
+            for(int j=0;j<numOfPlayers;j++){
+                if(i!=j)
+                    players[j]->myWrite(data1);
+            }
+
+            qDebug() <<"wrote to clients";
+        }
+
+
+        players[i]->myWrite("stop");
+        Sleep(uint(500));
+    }
+
+    qDebug()<<"end of the building part\n";
 
 }
 
 void PlayThread::restOfTheGame(){
 
-    //add condition
 
+    //who is the winner
     for(int i=0;i<numOfPlayers;i++){
 
+        dicePart(i);
 
-        QByteArray data1="",data2="",data3="";
+        Sleep(uint(1000));
 
-        //read dice number
-        myWrite(i,"rollDice");
-        myRead(i,data1);
-        myWrite(i,"stopDice");
-
-
-        if(data1=="diceNum:7"){
-
-            for(int j=0;j<numOfPlayers;j++)
-                myWrite(j,"robber");
-
-            for(int j=0;j<numOfPlayers;j++){
-                data3="";
-
-                myRead(j,data3);
-
-                //QString s=data3;
-                //if(s.contains("Yes"))
-                    //add s to bank
-            }
-
-            myWrite(i,"moveRobber");
-            myRead(i,data1);
-
-        }
-
-        for(int j=0;j<numOfPlayers;j++){
-            //== or !=  ???
-            myWrite(j,data1);
-        }
-
-
-
-        //actions
-
-        //jejfnfdjknf
-        while(1){
-            data2="";
-
-            myWrite(i,"go");
-
-            myRead(i,data2);
-
-            if(data2=="finish")
-                break;
-            else if(data2=="buyDevelopment"){
-
-                //choose a random development card
-                data2="davelopment";
-                data2+=getDevelopmentCard();
-
-                myWrite(i,data2);
-
-                continue;
-            }
-
-            //write to others to update their game
-            for(int j=0;j<numOfPlayers;j++){
-                //== or !=  ?????
-                myWrite(j,data2);
-            }
-        }
-
-        myWrite(i,"stop");
-
+        buildPart(i);
 
 
         if(i==numOfPlayers-1)
-            i=0;
+            i=-1;
     }
-
-
 
 }
 

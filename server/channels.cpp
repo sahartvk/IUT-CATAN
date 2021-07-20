@@ -15,6 +15,7 @@ channels::channels(QTcpSocket* _socket,std::vector<Player*>& _tempP3,
     t=std::thread(&channels::communicate,this);
 
 }
+
 void channels::communicate(){
 
     //connect(clientSocket,SIGNAL(readyRead()),this,SLOT(readingData()));
@@ -83,6 +84,7 @@ void channels::_3players(QString sdata){
     Player* p=new Player(socket);
     tempP3.push_back(p);
 
+    t.join();
 
 }
 
@@ -93,5 +95,7 @@ void channels::_4Players(QString sdata){
 
     Player* p=new Player(socket);
     tempP4.push_back(p);
+
+    t.join();
 }
 

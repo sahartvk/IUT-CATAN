@@ -25,8 +25,6 @@ public slots:
 private:
     Ui::catan1 *ui;
 
-    QTcpSocket* clientSocket;
-
 };
 
 #endif // CATAN1_H

@@ -2,17 +2,17 @@
 #include "ui_guide.h"
 #include "catan2.h"
 
-Guide::Guide(QWidget *parent,QTcpSocket* _clientSocket) :
+Guide::Guide(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Guide)
 {
-    clientSocket=_clientSocket;
+
     ui->setupUi(this);
     connect(ui->back,SIGNAL(clicked(bool)),this,SLOT(onBack()));
 }
 void Guide::onBack()
 {
-    catan2 *c2=new catan2(0,clientSocket);
+    catan2 *c2=new catan2;
     c2->show();
     this->close();
 }

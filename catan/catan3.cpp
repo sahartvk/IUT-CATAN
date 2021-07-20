@@ -5,11 +5,11 @@
 #include "playground_4.h"
 #include<QByteArray>
 
-catan3::catan3(QWidget *parent,QTcpSocket* _clientSocket) :
+catan3::catan3(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::catan3)
 {
-    clientSocket=_clientSocket;
+
 
     ui->setupUi(this);
 
@@ -21,7 +21,7 @@ catan3::catan3(QWidget *parent,QTcpSocket* _clientSocket) :
 void catan3::myWrite(const char* data){
 
     clientSocket->write(data);
-    clientSocket->waitForBytesWritten(-1);
+    while(clientSocket->waitForBytesWritten(-1));
 }
 
 void catan3::myRead(QByteArray& data){
@@ -32,44 +32,50 @@ void catan3::myRead(QByteArray& data){
 
 void catan3::onBack()
 {
-    sign_in *si=new sign_in(0,clientSocket);
+    sign_in *si=new sign_in;
     si->show();
     this->close();
 }
 void catan3::on3Player()
 {
-    myWrite("3player\n");
+//    myWrite("3player\n");
 
-    QByteArray data;
-    myRead(data);
+//    QByteArray data;
+//    myRead(data);
 
-    if(data=="gameStarted"){
-        start3();
-    }
+//    if(data=="gameStarted"){
+//        start3();
+//    }
 
-}
+    clientSocket=new QTcpSocket;
+    clientSocket->connectToHost("127.0.0.1",1234);
 
-void catan3::on4Player()
-{
-     myWrite("4player\n");
-
-     QByteArray data;
-     myRead(data);
-
-     if(data=="gameStarted"){
-         start4();
-     }
+    connect(clientSocket,SIGNAL(connected()),this,SLOT(connectedToServer3()));
 
 }
 
-void catan3::start3(){
+void catan3::connectedToServer3(){
 
-    playground_3 *p3=new playground_3(0,clientSocket);
+    myWrite("3Player\n");
+    playground_3 *p3=new playground_3(clientSocket,0);
     p3->show();
     this->close();
 }
 
-void catan3::start4(){
+void catan3::on4Player()
+{
+//     myWrite("4player\n");
+
+//     QByteArray data;
+//     myRead(data);
+
+//     if(data=="gameStarted"){
+//         start4();
+//     }
+
+}
+
+void catan3::connectedToServer4(){
 
     playground *p4=new playground(0,clientSocket);
     p4->show();

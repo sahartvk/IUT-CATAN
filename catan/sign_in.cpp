@@ -5,11 +5,10 @@
 #include <fstream>
 #include <QMessageBox>
 
-sign_in::sign_in(QWidget *parent,QTcpSocket* _clientSocket) :
+sign_in::sign_in(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::sign_in)
 {
-    clientSocket=_clientSocket;
 
     ui->setupUi(this);
 

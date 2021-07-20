@@ -8,23 +8,25 @@
 #include<QByteArray>
 #include"player.h"
 #include"playthread.h"
-#include"channels.h"
+//#include"channels.h"
 
 
 
-class server : public QMainWindow
+class myServer : public QMainWindow
 {
     Q_OBJECT
 
 public:
 
-    server(QWidget *parent = nullptr);
-    ~server();
+    myServer(QWidget *parent = nullptr);
+    ~myServer();
 
      //static void addPlayer(int i,QTcpSocket* socket);
 
      //void addP3(Player* p);
      //void addP4(Player* p);
+
+    void startServer();
 
      std::vector<Player*> tempP3;
      std::vector<Player*> tempP4;
@@ -33,9 +35,32 @@ private:
 
     QTcpServer* myserver;
 
-    std::vector<channels *> connections;
+    //std::vector<channels *> connections;
     std::vector<PlayThread *> pt;
+    std::vector<Player*> players;
+//    std::vector<QTcpSocket*> sockets;
 
+
+//    int numOfPlayers;
+
+//    void myWrite(int i,QByteArray& data);
+//    void myWrite(int i,const char* data);
+//    void myWrite(int i,QString& data);
+//    void myRead(int i,QByteArray& data);
+
+//    void beginingOfTheGame(int i);
+//    void restOfTheGame();
+//    void giveColor();
+
+//    QString getDevelopmentCard();
+
+//    std::vector<std::string> colors;
+
+
+
+    void newPlayThread();
+
+    int count;
 
 signals:
     //???
@@ -51,6 +76,7 @@ public slots:
 
     void newConnectionSlot();
 
-    void newPlayThread();
+    // void game();
+    //void newPlayThread();
 };
 #endif // SERVER_H

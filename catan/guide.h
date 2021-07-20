@@ -14,13 +14,12 @@ class Guide : public QWidget
     Q_OBJECT
 
 public:
-    explicit Guide(QWidget *parent = nullptr,QTcpSocket* _clientSocket=0);
+    explicit Guide(QWidget *parent = nullptr);
     ~Guide();
 public slots:
     void onBack();
 private:
     Ui::Guide *ui;
-    QTcpSocket* clientSocket;
 };
 
 #endif // GUIDE_H

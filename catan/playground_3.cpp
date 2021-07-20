@@ -2,8 +2,9 @@
 #include "ui_playground_3.h"
 #include<QPushButton>
 #include<fstream>
+using namespace std;
 
-playground_3::playground_3(QWidget *parent,QTcpSocket* _clientSocket) :
+playground_3::playground_3(QTcpSocket* _clientSocket,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::playground_3)
 {
@@ -17,19 +18,22 @@ playground_3::playground_3(QWidget *parent,QTcpSocket* _clientSocket) :
     p=new Player();
     m=new Map();
 
+
+//    ui->building->addItem(QIcon(":/prefix1/image/3154665.png"),"Road");
+//    ui->building->addItem(QIcon(":/prefix1/image/3916977.png"),"City");
+//    ui->building->addItem(QIcon(":/prefix1/image/3609777.png"),"Settelment");
+//    ui->building->addItem(QIcon(":/prefix1/image/4827397.png"),"Bridge");
+
+
+    //connects
+
     Vertice_Connection();
     Road_Coneection();
     Tile_Connection();
     Bridge_Connection();
 
-
-    ui->building->addItem(QIcon(":/prefix1/image/3154665.png"),"Road");
-    ui->building->addItem(QIcon(":/prefix1/image/3916977.png"),"City");
-    ui->building->addItem(QIcon(":/prefix1/image/3609777.png"),"Settelment");
-    ui->building->addItem(QIcon(":/prefix1/image/4827397.png"),"Bridge");
-
     connect(clientSocket,SIGNAL(readyRead()),this,SLOT(readingData()));
-    connect(clientSocket,SIGNAL(disconnected()),this,SLOT(disconnectFromServer()));
+    //connect(clientSocket,SIGNAL(disconnected()),this,SLOT(disconnectFromServer()));
 
     connect(ui->developmentcard,SIGNAL(clicked()),this,SLOT(developmentcardClicked()));
     connect(ui->dice,SIGNAL(clicked()),this,SLOT(diceClicked()));
@@ -309,41 +313,37 @@ void playground_3::initialPushButton()
 void playground_3::myWrite(QByteArray& data){
 
     clientSocket->write(data);
-    clientSocket->waitForBytesWritten(-1);
+    while(clientSocket->waitForBytesWritten(-1));
 }
 
 void playground_3::myWrite(const char* data){
 
     clientSocket->write(data);
-    clientSocket->waitForBytesWritten(-1);
+    while(clientSocket->waitForBytesWritten(-1));
 }
 
 void playground_3::myWrite(QString& data){
 
     clientSocket->write(data.toUtf8());
-    clientSocket->waitForBytesWritten(-1);
+    while(clientSocket->waitForBytesWritten(-1));
 }
 
-void playground_3::myRead(QByteArray& data){
+//void playground_3::myRead(QByteArray& data){
 
-    while(!clientSocket->waitForReadyRead(-1));
-    data=clientSocket->readAll();
-}
+//    while(!clientSocket->waitForReadyRead(-1));
+//    data=clientSocket->readAll();
+//}
 
 
 //starts from here
 
 void playground_3::readingData(){
 
-//    QByteArray data;
-//    myRead(data);
-
     QByteArray data=clientSocket->readAll();
-    //????? what do we do with the data???????
 
     QString sdata=data;
 
-       if(sdata.contains("color")){
+       if(sdata.contains("initialColor")){
 
            string s=sdata.toUtf8().constData();
            string color=s.substr(s.find(":")+1);
@@ -386,6 +386,7 @@ void playground_3::readingData(){
            }
            ui->building->addItem(QIcon(":/prefix1/image/3154665.png"),"Road");
            buildingType="road";
+
 
            //show and enable edges to put a road
            for(int i=0;i<e.size();i++)
@@ -488,19 +489,21 @@ void playground_3::readingData(){
        else if(sdata.contains("robber")){
 
            //robber page   ??????????
-            if(p->getNumOfResourceCard()>7){
-                QString temp="Yesrobber";
-                //open robber page and choose cards
-                QString data;
-                //intialize data like (2wood,3 sheap)
-                temp+=data;
-                myWrite(temp);
+//            if(p->getNumOfResourceCard()>7){
+//                QString temp="Yesrobber";
+//                //open robber page and choose cards
+//                QString data;
+//                //intialize data like (2wood,3 sheap)
+//                temp+=data;
+//                myWrite(temp);
 
-            }
-            else{
-                QString temp="Norobber";
-                myWrite(temp);
-            }
+//            }
+//            else{
+//                QString temp="Norobber";
+//                myWrite(temp);
+//            }
+           myWrite("No");
+
        }
        else if(sdata.contains("moveRobber")){
 
@@ -617,14 +620,14 @@ void playground_3::verticeClicked(){
         if(buildingType=="settlement")
         {
             //gui->put a settlement picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/blue home.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/blue home.png"));
+            button->setIconSize(QSize(30,30));
         }
         if(buildingType=="city")
         {
             //gui->put a city picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/blue city.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/blue city.png"));
+            button->setIconSize(QSize(30,30));
         }
     }
     else if(p->getColor()=="yellow")
@@ -633,14 +636,14 @@ void playground_3::verticeClicked(){
         if(buildingType=="settlement")
         {
             //gui->put a settlement picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/yellow home.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/yellow home.png"));
+            button->setIconSize(QSize(30,30));
         }
         if(buildingType=="city")
         {
             //gui->put a city picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/yellow city.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/yellow city.png"));
+            button->setIconSize(QSize(30,30));
         }
     }
     else if(p->getColor()=="red")
@@ -649,14 +652,14 @@ void playground_3::verticeClicked(){
         if(buildingType=="settlement")
         {
             //gui->put a settlement picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/red home.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/red home.png"));
+            button->setIconSize(QSize(30,30));
         }
         if(buildingType=="city")
         {
             //gui->put a city picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/red city.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/red city.png"));
+            button->setIconSize(QSize(30,30));
         }
     }
     else if(p->getColor()=="green")
@@ -665,14 +668,14 @@ void playground_3::verticeClicked(){
         if(buildingType=="settlement")
         {
             //gui->put a settlement picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/green home.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/green home.png"));
+            button->setIconSize(QSize(30,30));
         }
         if(buildingType=="city")
         {
             //gui->put a city picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/green city.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/green city.png"));
+            button->setIconSize(QSize(30,30));
         }
     }
 
@@ -691,10 +694,15 @@ void playground_3::verticeClicked(){
     string line;
 
     int lineNum = 0;
-    while (lineNum != i && getline(fin, line)) {
-        ++lineNum;
+    if(fin){
+
+        while (lineNum != i){
+
+            getline(fin, line);
+            ++lineNum;
+        }
+        fin.close();
     }
-    fin.close();
 
     //seaport adjacent
     if(line.find("#")>=0){
@@ -736,6 +744,9 @@ void playground_3::verticeClicked(){
 
     }
 
+    info+="-";
+    info+=p->getColor();
+
     m->addBuildingToTile(info);
 
     QString Qinfo=QString::fromStdString(info);
@@ -756,8 +767,8 @@ void playground_3::edgeClicked(){
         if(buildingType=="road")
         {
             //gui->put a settlement picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/blue road.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/blue road.png"));
+            button->setIconSize(QSize(30,30));
         }
     }
     else if(p->getColor()=="yellow")
@@ -766,8 +777,8 @@ void playground_3::edgeClicked(){
         if(buildingType=="road")
         {
             //gui->put a settlement picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/yellow road.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/yellow road.png"));
+            button->setIconSize(QSize(30,30));
         }
     }
     else if(p->getColor()=="red")
@@ -776,8 +787,8 @@ void playground_3::edgeClicked(){
         if(buildingType=="road")
         {
             //gui->put a settlement picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/red road.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/red road.png"));
+            button->setIconSize(QSize(30,30));
         }
     }
     else if(p->getColor()=="green")
@@ -786,8 +797,8 @@ void playground_3::edgeClicked(){
         if(buildingType=="road")
         {
             //gui->put a settlement picture in that button
-            v[i-1]->setIcon(QIcon(":/prefix1/image/green road.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            button->setIcon(QIcon(":/prefix1/image/green road.png"));
+            button->setIconSize(QSize(30,30));
         }
     }
 

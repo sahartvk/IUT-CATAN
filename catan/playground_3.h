@@ -19,7 +19,7 @@ class playground_3 : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit playground_3(QWidget *parent = nullptr,QTcpSocket* _clientSocket=0);
+    explicit playground_3(QTcpSocket* _clientSocket,QWidget *parent=0);
     ~playground_3();
     void Vertice_Connection();
     void Road_Coneection();

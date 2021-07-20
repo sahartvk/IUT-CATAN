@@ -5,7 +5,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    server w;
-    w.show();
+    myServer w;
+    w.startServer();
+    //w.show();
     return a.exec();
 }

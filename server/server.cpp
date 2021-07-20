@@ -2,93 +2,55 @@
 
 using namespace std;
 
-server::server(QWidget *parent)
+myServer::myServer(QWidget *parent)
     : QMainWindow(parent)
 {
+    count=0;
+
+}
+void myServer::startServer(){
 
     myserver=new QTcpServer();
-    myserver->listen(QHostAddress::Any,8080);
+    myserver->listen(QHostAddress::Any,1234);
 
     if(!myserver->isListening())
-        qDebug()<<"not listening";
+        qDebug()<<"not listening\n";
     else{
-        qDebug()<<"listening";
+        qDebug()<<"listening\n";
         connect(myserver,SIGNAL(newConnection()),this,SLOT(newConnectionSlot()));
     }
+}
+void myServer::newConnectionSlot(){
 
-    connect(this,SIGNAL(enoughPlayers()),this,SLOT(newPlayThread()));
+    Player* p=new Player(myserver->nextPendingConnection());
+    players.push_back(p);
+    qDebug() <<"connected\n";
 
-    if(tempP3.size()==3){
-        PlayThread* _pt=new PlayThread(tempP3);
-        pt.push_back(_pt);
+    QByteArray data;
+    p->myRead(data);
 
-        tempP3.clear();
-    }
-    else if(tempP4.size()==4){
-        PlayThread* _pt=new PlayThread(tempP4);
-        pt.push_back(_pt);
+    qDebug() <<data;
 
-        tempP4.clear();
+    QString Qdata=data;
+
+        count++;
+
+    if(count==3){
+        newPlayThread();
     }
 
 }
-void server::newConnectionSlot(){
+void myServer::newPlayThread(){
 
-    channels* newChannel=new channels(myserver->nextPendingConnection(),tempP3,tempP4);
-    connections.push_back(newChannel);
+    qDebug()<<"new thread\n";
+    PlayThread* _pt=new PlayThread(players);
+    pt.push_back(_pt);
 
-}
-
-//void server::addPlayer(int i,QTcpSocket* socket){
-
-//    Player* p=new Player(socket);
-
-//    if(i==3){
-//        tempP3.push_back(p);
-//    }
-
-//    else if(i==3){
-//        tempP3.push_back(p);
-//    }
-
-//    if(tempP3.size()==3 || tempP4.size()==4)
-//        emit enoughPlayers();
-//}
-
-//void server::addP3(Player* p){
-
-//    tempP3.push_back(p);
-
-//    if(tempP4.size()==3)
-//        emit enoughPlayers();
-//}
-
-//void server::addP4(Player* p){
-
-//    tempP4.push_back(p);
-
-//    if(tempP4.size()==4)
-//        emit enoughPlayers();
-//}
-
-void server::newPlayThread(){
-
-    if(tempP3.size()==3){
-        PlayThread* newpt=new PlayThread(tempP3);
-        pt.push_back(newpt);
-        tempP3.clear();
-    }
-
-    if(tempP4.size()==4){
-        PlayThread* newpt=new PlayThread(tempP4);
-        pt.push_back(newpt);
-        tempP4.clear();
-    }
+    _pt->run();
 
 }
 
-
-server::~server()
+myServer::~myServer()
 {
 }
 
