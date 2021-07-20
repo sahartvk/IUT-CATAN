@@ -11,23 +11,27 @@ Map::Map()
     //initial tiles
     std::ifstream fin;
     fin.open("initialTiles.txt");
-    if(fin){
 
-        std::string line;
-        getline(fin,line);
+    std::string line;
+    while(getline(fin,line)){
+
+
         int pos=line.find(" ");
 
         Tile t(line.substr(0,pos),stoi(line.substr(pos+1)));
         tiles.push_back(t);
     }
+
     fin.close();
 
     //initial seaports
-    fin.open("initialSeaports.txt");
-    if(fin){
+    ifstream fin2;
+    fin2.open("initialSeaports.txt");
+
+    while(fin2){
 
         std::string line;
-        getline(fin,line);
+        getline(fin2,line);
 
         if(line=="anything"){
 
@@ -39,8 +43,10 @@ Map::Map()
             Seaport s(line,1,2);
             seaports.push_back(s);
         }
+
     }
-    fin.close();
+
+    fin2.close();
 
 }
 

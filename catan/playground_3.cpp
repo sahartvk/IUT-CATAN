@@ -2,12 +2,15 @@
 #include "ui_playground_3.h"
 #include<QPushButton>
 #include<fstream>
+#include<QDebug>
+
 using namespace std;
 
 playground_3::playground_3(QTcpSocket* _clientSocket,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::playground_3)
 {
+
     clientSocket=_clientSocket;
 
     ui->setupUi(this);
@@ -357,6 +360,9 @@ void playground_3::readingData(){
                p->setTurn(3);
            else if(color=="red")
                p->setTurn(4);
+
+           qDebug()<<sdata;
+
        }
        else if(sdata.contains("build:S")){
 
@@ -376,6 +382,7 @@ void playground_3::readingData(){
                v[i]->setFlat(false);
            }
 
+           qDebug()<<"build:S";
        }
        else if(sdata.contains("build:R")){
 
@@ -394,8 +401,11 @@ void playground_3::readingData(){
                e[i]->setEnabled(true);
                e[i]->setFlat(false);
            }
+
+           qDebug()<<"build:R";
        }
        else if(sdata.contains("stop")){
+
            //disable all buttons
            for(int i=0;i<e.size();i++)
            {
@@ -423,6 +433,8 @@ void playground_3::readingData(){
            ui->ok->setEnabled(false);
            ui->trade->setEnabled(false);
            ui->end->setEnabled(false);
+
+           qDebug()<<"stop";
            
        }
        else if(sdata.contains("stopDice")){
@@ -529,12 +541,15 @@ void playground_3::readingData(){
        else if(sdata.contains("s")){
            //s 1:10,9,8-color
 
+           qDebug()<<"begining of the s";
            std::string str=sdata.toUtf8().constData();
            m->addBuildingToTile(str);
 
            //1
            int n=std::stoi(str.substr(str.find(" "),str.find(":")));
            //update gui and put a settelment in n position
+
+           qDebug()<<"end of the s";
 
        }
        else if(sdata.contains("c")){
@@ -549,6 +564,8 @@ void playground_3::readingData(){
 
        }
        else if(sdata.contains("e")){
+
+           qDebug()<<"begining of the e";
            //e 1:color  ????
 
        }
@@ -619,9 +636,13 @@ void playground_3::verticeClicked(){
     {
         if(buildingType=="settlement")
         {
+            qDebug()<<"begining of the set Icon";
             //gui->put a settlement picture in that button
             button->setIcon(QIcon(":/prefix1/image/blue home.png"));
             button->setIconSize(QSize(30,30));
+
+            button->setFlat(false);
+            qDebug()<<"set icon";
         }
         if(buildingType=="city")
         {
@@ -720,6 +741,7 @@ void playground_3::verticeClicked(){
     }
 
     string info;
+
     if(lineNum==i){
 
         if(buildingType=="settlement")
@@ -747,11 +769,15 @@ void playground_3::verticeClicked(){
     info+="-";
     info+=p->getColor();
 
+    string temp1=info;
+
     m->addBuildingToTile(info);
 
-    QString Qinfo=QString::fromStdString(info);
+    QString Qdata=QString::fromStdString(temp1);
 
-    myWrite(Qinfo);
+    qDebug()<<Qdata;
+
+    myWrite(Qdata);
 }
 
 void playground_3::edgeClicked(){
