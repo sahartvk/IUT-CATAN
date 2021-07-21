@@ -1,18 +1,20 @@
 #include "trade.h"
 #include "ui_trade.h"
+#include"globalvar.h"
 
 trade::trade(vector<RecourceCard>& _resource,int& _sheep,int& _wheat,int& _wood,
              int& _stone,int& _brick,vector<Seaport>& _seaports,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::trade)
 {
-    resource=_resource;
-    sheep=_sheep;
-    wheat=_wheat;
-    wood=_wood;
-    stone=_stone;
-    brick=_brick;
-    seaports=_seaports;
+
+//    resource=_resource;
+//    sheep=_sheep;
+//    wheat=_wheat;
+//    wood=_wood;
+//    stone=_stone;
+//    brick=_brick;
+//    seaports=_seaports;
 
 
     ui->setupUi(this);
@@ -220,6 +222,9 @@ bool trade::trade_bank() {
             wheat += 1;
         }
     }
+
+
+
 
 }
 bool trade::trade_Clients(vector<RecourceCard>_give , vector<RecourceCard>_recieve) {

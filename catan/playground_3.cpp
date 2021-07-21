@@ -3,6 +3,7 @@
 #include<QPushButton>
 #include<fstream>
 #include<QDebug>
+#include"globalvar.h"
 
 using namespace std;
 
@@ -46,7 +47,7 @@ playground_3::playground_3(QTcpSocket* _clientSocket,QWidget *parent) :
     connect(ui->dice,SIGNAL(clicked()),this,SLOT(diceClicked()));
     connect(ui->end,SIGNAL(clicked()),this,SLOT(finishTurnClicked()));
     connect(ui->trade,SIGNAL(clicked()),this,SLOT(tradeClicked()));
-    //connect(ui->ok,SIGNAL(clicked(bool)),this,SLOT(onOk()));
+    connect(ui->ok,SIGNAL(clicked(bool)),this,SLOT(okClicked()));
     //connect(ui->robber,SIGNAL(clicked(bool)),this,SLOT(onRobber()));
 }
 
@@ -439,6 +440,8 @@ void playground_3::readingData(){
            //e 22-color
            std::string str=sdata.toUtf8().constData();
 
+           buildingType="road";
+
            string color=str.substr(str.find("-")+1);
            string temp=str.substr(0,str.find("-"));
            temp=temp.substr(temp.find(" ")+1);
@@ -586,13 +589,13 @@ void playground_3::readingData(){
            //add elements that can buy to combo box
            for(int i=0;i<temp.size();i++){
 
-               if(temp[i]=="Settelment")
+               if(temp[i]=="settelment")
                    ui->building->addItem(QIcon(":/prefix1/image/3609777.png"),"Settelment");
-               else if(temp[i]=="Road")
+               else if(temp[i]=="road")
                    ui->building->addItem(QIcon(":/prefix1/image/3154665.png"),"Road");
-               else if(temp[i]=="City")
+               else if(temp[i]=="city")
                    ui->building->addItem(QIcon(":/prefix1/image/3916977.png"),"City");
-               else if(temp[i]=="Bridge")
+               else if(temp[i]=="bridge")
                    ui->building->addItem(QIcon(":/prefix1/image/4827397.png"),"Bridge");
 
            }
@@ -1008,6 +1011,7 @@ void playground_3::developmentcardClicked(){
 void playground_3::tradeClicked(){
 
     trade* t;
+
     t=new trade(p->getResources(),p->getSheep_cnt(),p->getWheat_cnt(),
                 p->getWood_cnt(),p->getStone_cnt(),p->getBrick_cnt(),p->getSeaports(),0);
     t->show();
