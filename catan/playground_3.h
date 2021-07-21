@@ -53,12 +53,22 @@ private:
     Ui::playground_3 *ui;
 
     QTcpSocket* clientSocket;
-    vector<QPushButton*>v,e,b,t;
+
+    vector<QPushButton*> v;
+    vector<QPushButton*> e;
+    vector<QPushButton*> b;
+    vector<QPushButton*> t;
+
     void myWrite(QByteArray& data);
     void myWrite(const char* data);
     void myWrite(QString& data);
     void myRead(QByteArray& data);
+
     void initialPushButton();
+
+    void updateIconV(int i,string color,string type);
+    void updateIconE(int i,string color);
+    void updateIconB(int i,string color);
 
     string buildingType;
 

@@ -28,12 +28,16 @@ playground_3::playground_3(QTcpSocket* _clientSocket,QWidget *parent) :
 //    ui->building->addItem(QIcon(":/prefix1/image/4827397.png"),"Bridge");
 
 
+
     //connects
 
     Vertice_Connection();
     Road_Coneection();
     Tile_Connection();
     Bridge_Connection();
+
+
+
 
     connect(clientSocket,SIGNAL(readyRead()),this,SLOT(readingData()));
     //connect(clientSocket,SIGNAL(disconnected()),this,SLOT(disconnectFromServer()));
@@ -364,7 +368,71 @@ void playground_3::readingData(){
            qDebug()<<sdata;
 
        }
-       else if(sdata.contains("build:S")){
+       else if(sdata.contains("s ")){
+           //s 1:10,9,8-color
+
+
+           qDebug()<<"begining of the s";
+           std::string str=sdata.toUtf8().constData();
+           m->addBuildingToTile(str);
+
+           //1
+           //int n=std::stoi(str.substr(str.find(" "),str.find(":")));
+           int i;
+           string color,temp;
+           sscanf(str.c_str(),"s %d:%s-%s",&i,temp.c_str(),color.c_str());
+
+
+           //update gui and put a settelment in n position
+           updateIconV(i,color,"s");
+
+           qDebug()<<"end of the s";
+
+       }
+       else if(sdata.contains("c ")){
+           //c 1:10,9,8-color
+
+           std::string str=sdata.toUtf8().constData();
+           m->addBuildingToTile(str);
+
+           //1
+           //int n=std::stoi(str.substr(str.find(" "),str.find(":")));
+           int i;
+           string color,temp;
+           sscanf(str.c_str(),"s %d:%s-%s",&i,temp.c_str(),color.c_str());
+
+
+           //update gui and put a settelment in n position
+           updateIconV(i,color,"c");
+
+       }
+       else if(sdata.contains("e ")){
+
+           //e 22-color
+           std::string str=sdata.toUtf8().constData();
+
+           string color;
+           int i;
+           sscanf(str.c_str(),"e %d-%s",&i,color.c_str());
+
+           updateIconE(i,color);
+           qDebug()<<"begining of the e";
+
+
+       }
+       else if(sdata.contains("b ")){
+           //b 1-color
+
+           std::string str=sdata.toUtf8().constData();
+
+           string color;
+           int i;
+           sscanf(str.c_str(),"b %d-%s",&i,color.c_str());
+
+           updateIconB(i,color);
+
+       }
+       else if(sdata=="build:S"){
 
            int n=ui->building->count();
            for(int i=0;i<n;i++)
@@ -384,7 +452,7 @@ void playground_3::readingData(){
 
            qDebug()<<"build:S";
        }
-       else if(sdata.contains("build:R")){
+       else if(sdata=="build:R"){
 
            int n=ui->building->count();
            for(int i=0;i<n;i++)
@@ -404,7 +472,7 @@ void playground_3::readingData(){
 
            qDebug()<<"build:R";
        }
-       else if(sdata.contains("stop")){
+       else if(sdata=="stop"){
 
            //disable all buttons
            for(int i=0;i<e.size();i++)
@@ -437,16 +505,16 @@ void playground_3::readingData(){
            qDebug()<<"stop";
            
        }
-       else if(sdata.contains("stopDice")){
+       else if(sdata=="stopDice"){
            //disable dice button
            ui->dice->setEnabled(false);
        }
-       else if(sdata.contains("rollDice")){
+       else if(sdata=="rollDice"){
            //activate dice pushbutton
            ui->dice->setEnabled(true);
            
        }
-       else if(sdata.contains("go")){
+       else if(sdata=="go"){
 
            //buildings
            std::vector<std::string> temp;
@@ -487,6 +555,8 @@ void playground_3::readingData(){
        }
        else if(sdata.contains("diceNum")){
 
+           //diceNum:n
+
            std::string str=sdata.toUtf8().constData();
            int num=std::stoi(str.substr(str.find(":")+1));
 
@@ -498,7 +568,7 @@ void playground_3::readingData(){
            updateNumofCards();
 
        }
-       else if(sdata.contains("robber")){
+       else if(sdata=="robber"){
 
            //robber page   ??????????
 //            if(p->getNumOfResourceCard()>7){
@@ -517,7 +587,7 @@ void playground_3::readingData(){
            myWrite("No");
 
        }
-       else if(sdata.contains("moveRobber")){
+       else if(sdata=="moveRobber"){
 
            //show and enable push buttons on tile to choose one of them
            for(int i=0;i<28;i++)
@@ -538,42 +608,7 @@ void playground_3::readingData(){
            t[n-1]->setIconSize(QSize(30,30));
 
        }
-       else if(sdata.contains("s")){
-           //s 1:10,9,8-color
 
-           qDebug()<<"begining of the s";
-           std::string str=sdata.toUtf8().constData();
-           m->addBuildingToTile(str);
-
-           //1
-           int n=std::stoi(str.substr(str.find(" "),str.find(":")));
-           //update gui and put a settelment in n position
-
-           qDebug()<<"end of the s";
-
-       }
-       else if(sdata.contains("c")){
-           //c 1:10,9,8-color
-           std::string str=sdata.toUtf8().constData();
-           m->addBuildingToTile(str);
-
-           //1
-           int n=std::stoi(str.substr(str.find(" "),str.find(":")));
-           //update gui and put a city in n position
-
-
-       }
-       else if(sdata.contains("e")){
-
-           qDebug()<<"begining of the e";
-           //e 1:color  ????
-
-       }
-       else if(sdata.contains("b")){
-           //b 1:color  ????
-
-
-       }
        else if(sdata.contains("development")){
 
            //development:name
@@ -630,75 +665,16 @@ void playground_3::verticeClicked(){
     QPushButton *button = (QPushButton *)sender();
     QString name = button->objectName();
     string temp =name.toUtf8().constData();
-    int i = stoi(temp.substr(temp.find("v")+1));
+    //int i = stoi(temp.substr(temp.find("v")+1));
+    int i;
+    sscanf(temp.c_str(),"v%d",&i);
 
-    if(p->getColor()=="blue")
-    {
-        if(buildingType=="settlement")
-        {
-            qDebug()<<"begining of the set Icon";
-            //gui->put a settlement picture in that button
-            button->setIcon(QIcon(":/prefix1/image/blue home.png"));
-            button->setIconSize(QSize(30,30));
+    //update icon
+    if(buildingType=="settlement")
+        updateIconV(i,p->getColor(),"s");
 
-            button->setFlat(false);
-            qDebug()<<"set icon";
-        }
-        if(buildingType=="city")
-        {
-            //gui->put a city picture in that button
-            button->setIcon(QIcon(":/prefix1/image/blue city.png"));
-            button->setIconSize(QSize(30,30));
-        }
-    }
-    else if(p->getColor()=="yellow")
-    {
-
-        if(buildingType=="settlement")
-        {
-            //gui->put a settlement picture in that button
-            button->setIcon(QIcon(":/prefix1/image/yellow home.png"));
-            button->setIconSize(QSize(30,30));
-        }
-        if(buildingType=="city")
-        {
-            //gui->put a city picture in that button
-            button->setIcon(QIcon(":/prefix1/image/yellow city.png"));
-            button->setIconSize(QSize(30,30));
-        }
-    }
-    else if(p->getColor()=="red")
-    {
-
-        if(buildingType=="settlement")
-        {
-            //gui->put a settlement picture in that button
-            button->setIcon(QIcon(":/prefix1/image/red home.png"));
-            button->setIconSize(QSize(30,30));
-        }
-        if(buildingType=="city")
-        {
-            //gui->put a city picture in that button
-            button->setIcon(QIcon(":/prefix1/image/red city.png"));
-            button->setIconSize(QSize(30,30));
-        }
-    }
-    else if(p->getColor()=="green")
-    {
-
-        if(buildingType=="settlement")
-        {
-            //gui->put a settlement picture in that button
-            button->setIcon(QIcon(":/prefix1/image/green home.png"));
-            button->setIconSize(QSize(30,30));
-        }
-        if(buildingType=="city")
-        {
-            //gui->put a city picture in that button
-            button->setIcon(QIcon(":/prefix1/image/green city.png"));
-            button->setIconSize(QSize(30,30));
-        }
-    }
+    else if(buildingType=="city")
+        updateIconV(i,p->getColor(),"c");
 
 
     //reduce and update cards
@@ -725,20 +701,20 @@ void playground_3::verticeClicked(){
         fin.close();
     }
 
-    //seaport adjacent
-    if(line.find("#")>=0){
+//    //seaport adjacent
+//    if((line.find("#")!= std::string::npos)){
 
-        Seaport sp("anything",1,3);
-        p->addseaport(sp);
-    }
-    else if(line.find("*")>=0){
+//        Seaport sp("anything",1,3);
+//        p->addseaport(sp);
+//    }
+//    else if((line.find("*")!= std::string::npos)){
 
-        string resource=line.substr(line.find("(")+1);
-        resource=resource.substr(0,resource.find(")"));
+//        string resource=line.substr(line.find("(")+1);
+//        resource=resource.substr(0,resource.find(")"));
 
-        Seaport sp(resource,1,2);
-        p->addseaport(sp);
-    }
+//        Seaport sp(resource,1,2);
+//        p->addseaport(sp);
+//    }
 
     string info;
 
@@ -751,13 +727,15 @@ void playground_3::verticeClicked(){
 
         info+=to_string(i);
 
-        if(line.find("#")>=0){
+        if(line.find("#")!= std::string::npos){
 
-            line=line.substr(line.find(":"),line.find("#")-1);
+            line=line.substr(line.find(":"));
+            line=line.substr(0,line.find("#")-1);
         }
-        else if(line.find("*")>=0){
+        else if(line.find("*")!= std::string::npos){
 
-           line=line.substr(line.find(":"),line.find("*")-1);
+           line=line.substr(line.find(":"));
+           line=line.substr(0,line.find("*")-1);
         }
         else
             line=line.substr(line.find(":"));
@@ -779,62 +757,148 @@ void playground_3::verticeClicked(){
 
     myWrite(Qdata);
 }
+void playground_3::updateIconV(int i,string color,string type){
+
+    if(color=="blue")
+    {
+        if(type=="s")
+        {
+            qDebug()<<"begining of the set Icon";
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/blue home.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+
+            v[i-1]->setFlat(false);
+            qDebug()<<"set icon";
+        }
+        if(type=="c")
+        {
+            //gui->put a city picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/blue city.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(color=="yellow")
+    {
+
+        if(type=="s")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/yellow home.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+        if(type=="c")
+        {
+            //gui->put a city picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/yellow city.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(color=="red")
+    {
+
+        if(type=="s")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/red home.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+        if(type=="c")
+        {
+            //gui->put a city picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/red city.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(color=="green")
+    {
+
+        if(type=="s")
+        {
+            //gui->put a settlement picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/green home.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+        if(type=="c")
+        {
+            //gui->put a city picture in that button
+            v[i-1]->setIcon(QIcon(":/prefix1/image/green city.png"));
+            v[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+}
+
+void playground_3::updateIconE(int i,string color){
+
+    if(color=="blue")
+    {
+
+        if(buildingType=="road")
+        {
+            //gui->put a settlement picture in that button
+            e[i-1]->setIcon(QIcon(":/prefix1/image/blue road.png"));
+            e[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(color=="yellow")
+    {
+
+        if(buildingType=="road")
+        {
+            //gui->put a settlement picture in that button
+            e[i-1]->setIcon(QIcon(":/prefix1/image/yellow road.png"));
+            e[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(color=="red")
+    {
+
+        if(buildingType=="road")
+        {
+            //gui->put a settlement picture in that button
+            e[i-1]->setIcon(QIcon(":/prefix1/image/red road.png"));
+            e[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+    else if(color=="green")
+    {
+
+        if(buildingType=="road")
+        {
+            //gui->put a settlement picture in that button
+            e[i-1]->setIcon(QIcon(":/prefix1/image/green road.png"));
+            e[i-1]->setIconSize(QSize(30,30));
+        }
+    }
+}
 
 void playground_3::edgeClicked(){
     
     QPushButton *button = (QPushButton *)sender();
-    QString name = button->objectName();
-    string temp =name.toUtf8().constData();
-    int i = stoi(temp.substr(temp.find("v")+1));
+    QString Qname = button->objectName();
+    string name=Qname.toUtf8().constData();
 
-    if(p->getColor()=="blue")
-    {
+    int i;
+    sscanf(name.c_str(),"e%d",&i);
 
-        if(buildingType=="road")
-        {
-            //gui->put a settlement picture in that button
-            button->setIcon(QIcon(":/prefix1/image/blue road.png"));
-            button->setIconSize(QSize(30,30));
-        }
-    }
-    else if(p->getColor()=="yellow")
-    {
-
-        if(buildingType=="road")
-        {
-            //gui->put a settlement picture in that button
-            button->setIcon(QIcon(":/prefix1/image/yellow road.png"));
-            button->setIconSize(QSize(30,30));
-        }
-    }
-    else if(p->getColor()=="red")
-    {
-
-        if(buildingType=="road")
-        {
-            //gui->put a settlement picture in that button
-            button->setIcon(QIcon(":/prefix1/image/red road.png"));
-            button->setIconSize(QSize(30,30));
-        }
-    }
-    else if(p->getColor()=="green")
-    {
-
-        if(buildingType=="road")
-        {
-            //gui->put a settlement picture in that button
-            button->setIcon(QIcon(":/prefix1/image/green road.png"));
-            button->setIconSize(QSize(30,30));
-        }
-    }
+    //update icon
+    updateIconE(i,p->getColor());
 
     p->buyRoad();
     updateNumofCards();
 
    //write edge name to server
-    name+="-";
-    name+=QString::fromStdString(p->getColor());
-    myWrite(name);
+    //e 22-blue
+    string temp=Qname.toUtf8().constData();
+    temp=temp[0];
+    temp+=" ";
+    temp+=to_string(i);
+    temp+="-";
+    temp+=p->getColor();
+
+
+    QString Qtemp=QString::fromStdString(temp);
+    myWrite(Qtemp);
 }
 
 
@@ -928,39 +992,59 @@ void playground_3::tileClicked(){
 
 }
 
+void playground_3::updateIconB(int i,string color){
+
+    if(color=="red"){
+       b[i-1]->setIcon(QIcon(":/prefix1/image/redbridge.png"));
+       b[i-1]->setIconSize(QSize(30,30));
+    }
+    if(color=="blue"){
+       b[i-1]->setIcon(QIcon(":/prefix1/image/bluebridge .png"));
+       b[i-1]->setIconSize(QSize(30,30));
+    }
+    if(color=="green"){
+       b[i-1]->setIcon(QIcon(":/prefix1/image/greenbridge .png"));
+       b[i-1]->setIconSize(QSize(30,30));
+    }
+    if(color=="yellow"){
+       b[i-1]->setIcon(QIcon(":/prefix1/image/yellowbridge.png"));
+       b[i-1]->setIconSize(QSize(30,30));
+    }
+}
+
 void playground_3::bridgeClicked(){
 
     QPushButton *button = (QPushButton *)sender();
+    QString name=button->objectName();
+    string str=name.toUtf8().constData();
 
-    string color=p->getColor();
-    if(color=="red"){
-       button->setIcon(QIcon(":/prefix1/image/redbridge.png"));
-       button->setIconSize(QSize(30,30));
-    }
-    if(color=="blue"){
-       button->setIcon(QIcon(":/prefix1/image/bluebridge .png"));
-       button->setIconSize(QSize(30,30));
-    }
-    if(color=="green"){
-       button->setIcon(QIcon(":/prefix1/image/greenbridge .png"));
-       button->setIconSize(QSize(30,30));
-    }
-    if(color=="yellow"){
-       button->setIcon(QIcon(":/prefix1/image/yellowbridge.png"));
-       button->setIconSize(QSize(30,30));
-    }
+    //b22
+    int i;
+    sscanf(str.c_str(),"b%d",&i);
+
+
+    updateIconB(i,p->getColor());
 
     p->buyBridge();
     updateNumofCards();
 
-    QString name=button->objectName();
 
-    name+="-";
-    name+=QString::fromStdString(p->getColor());
-    myWrite(name);
+
+    //b 1-blue
+    string temp=name.toUtf8().constData();
+    temp=temp[0];
+    temp+=" ";
+    temp+=to_string(i);
+    temp+="-";
+    temp+=p->getColor();
+
+
+    QString Qtemp=QString::fromStdString(temp);
+    myWrite(Qtemp);
 }
 
 void playground_3::Vertice_Connection(){
+
     connect(ui->v1,SIGNAL(clicked()),this,SLOT(verticeClicked()));
     connect(ui->v2,SIGNAL(clicked()),this,SLOT(verticeClicked()));
     connect(ui->v3,SIGNAL(clicked()),this,SLOT(verticeClicked()));

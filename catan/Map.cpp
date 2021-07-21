@@ -7,12 +7,12 @@ using namespace std;
 
 Map::Map()
 {
+    std::string line;
 
     //initial tiles
     std::ifstream fin;
     fin.open("initialTiles.txt");
 
-    std::string line;
     while(getline(fin,line)){
 
 
@@ -28,10 +28,7 @@ Map::Map()
     ifstream fin2;
     fin2.open("initialSeaports.txt");
 
-    while(fin2){
-
-        std::string line;
-        getline(fin2,line);
+    while(getline(fin2,line)){
 
         if(line=="anything"){
 
@@ -66,10 +63,13 @@ std::vector<std::string> Map::getCards(int num,std::string color){
     return answer;
 }
 
-void Map::addBuildingToTile(std::string info){//s 1:10,9,8-blue
+void Map::addBuildingToTile(std::string info){
+    //s 1:10,9,8-blue
 
     std::string type;
+
     std::string color=info.substr(info.find("-")+1);
+
     int location=std::stoi(info.substr(info.find(" "),info.find(":")));
 
     if(info[0]=='s'){
@@ -97,7 +97,7 @@ void Map::addBuildingToTile(std::string info){//s 1:10,9,8-blue
             i=std::stoi(info.substr(0,pos2));
 
         if(i!=0)
-            tiles[i].addBuildingToTile(b);
+            tiles[i-1].addBuildingToTile(b);
 
         info=info.substr(pos2+1);
     }
