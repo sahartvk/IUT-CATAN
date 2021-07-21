@@ -29,7 +29,7 @@ void PlayThread::run(){
 void PlayThread::giveColor(){
 
     for(int j=0;j<numOfPlayers;j++){
-        std::string temp="ininitalColor:";
+        std::string temp="initialColor:";
         temp+=colors[j];
         QString Qtemp=QString::fromStdString(temp);
 
@@ -63,16 +63,16 @@ void PlayThread::game(){
     //123
     qDebug()<<"beginingOfTheGame\n";
     for(int i=0;i<numOfPlayers;i++) {
-        Sleep(uint(1000));
+        Sleep(uint(2000));
         beginingOfTheGame(i);
     }
 
-    Sleep(uint(2000));
+    Sleep(uint(1000));
 
     //321
    qDebug()<<"beginingOfTheGame\n";
     for(int i=numOfPlayers-1;i>=0;i--) {
-        Sleep(uint(3000));
+        Sleep(uint(2000));
         beginingOfTheGame(i);
     }
 
@@ -109,6 +109,7 @@ void PlayThread::beginingOfTheGame(int i){
     players[i]->myWrite("stop");
 
     qDebug() <<data2;
+
 
     for(int j=0;j<numOfPlayers;j++){
 
