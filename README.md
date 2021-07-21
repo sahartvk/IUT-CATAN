@@ -4,7 +4,7 @@ Players build by spending resources (wood, stone , wheat, brick, and sheep ) tha
 There is also a robber token, initially placed on the desert; if a player rolls 7, the robber must be moved to another hex, which will no longer produce resources until the robber is moved again. That player may also steal a resource card from another player with a settlement or city adjacent to the robber's new placement. In addition, when a 7 is rolled, all players with 8 or more resource cards must discard their choice of half of their cards, rounded down. For example, If a player has 9 resource cards, and a 7 is rolled, the player must get rid of 4 cards.
 
 This project is programmed by C++ and QT creator  . 
-to run this project you need to open .pro file of server and catan folder in QT .remember to run server because catan Won't be run without server . This project is programmed for 3 or 4 players so you should run catan.pro 3 or 4 times and then start your game :) 
+to run this project you need to open .pro file of server and .pro file of catan  in QT .remember to run server because catan Won't be run without server . This project is programmed for 3 or 4 players so you should run catan.pro 3 or 4 times and then start your game :) 
 in programming this app we use object oriented design . so you can see the codes of each class in separate branches for each of us and final version is on main branch.
 This is our project for advanced programming lesson (AP) , and is coded by
  Fatemeh Soleimani(https://github.com/Fatemeh-Soleimani),
