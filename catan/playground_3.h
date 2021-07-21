@@ -8,6 +8,8 @@
 #include<vector>
 #include"player.h"
 #include"Map.h"
+#include<QRadioButton>
+#include<QLabel>
 
 namespace Ui {
 class playground_3;
@@ -65,6 +67,8 @@ private:
     vector<QPushButton*> v,e,b,t;
     vector<bool> eb,bb,tb;
     vector<vertice> vb;
+    vector<QRadioButton*> radioB;
+    vector<QLabel*> points;
 
     void myWrite(QByteArray& data);
     void myWrite(const char* data);

@@ -29,24 +29,31 @@ int Player::getTurn(){
     return turn;
 }
 
-int Player::getSheep_cnt(){
+int& Player::getSheep_cnt(){
     return sheep_cnt;
 }
 
-int Player::getWheat_cnt(){
+int& Player::getWheat_cnt(){
     return wheat_cnt;
 }
 
-int Player::getWood_cnt(){
+int& Player::getWood_cnt(){
     return wood_cnt;
 }
 
-int Player::getStone_cnt(){
+int& Player::getStone_cnt(){
     return stone_cnt;
 }
 
-int Player::getBrick_cnt(){
+int& Player::getBrick_cnt(){
     return brick_cnt;
+}
+
+vector<RecourceCard>& Player::getResources(){
+    return resources;
+}
+vector<Seaport>& Player::getSeaports(){
+    return seaports;
 }
 
 void Player::setusername (string user) {
@@ -149,8 +156,11 @@ int Player :: roll_dice () {
 vector<string> Player:: can_Buy_Building() { //how to make seaport??
 	vector<string>can_buy;
 	//check road
-	if (wood_cnt >= 1 && brick_cnt >= 1)
+    if (wood_cnt >= 1 && brick_cnt >= 1){
+
 		can_buy.push_back("road");
+        can_buy.push_back("bridge");
+    }
 
     if (wood_cnt >= 1 && brick_cnt >= 1 && sheep_cnt >= 1 && wheat_cnt >= 1)
 		can_buy.push_back("settlement");

@@ -41,11 +41,15 @@ public:
     void setTurn(int _turn);
     int getTurn();
 
-    int getSheep_cnt();
-    int getWheat_cnt();
-    int getWood_cnt();
-    int getStone_cnt();
-    int getBrick_cnt();
+    int& getSheep_cnt();
+    int& getWheat_cnt();
+    int& getWood_cnt();
+    int& getStone_cnt();
+    int& getBrick_cnt();
+
+    vector<RecourceCard>& getResources();
+    vector<Seaport>& getSeaports();
+
 
     void buySettlement();
     void buyCity();

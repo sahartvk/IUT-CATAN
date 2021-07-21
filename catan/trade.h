@@ -17,13 +17,12 @@ class trade : public QWidget
     Q_OBJECT
 
 public:
-    explicit trade(QWidget *parent = nullptr,QTcpSocket* _clientSocket=0);
+    //explicit trade(QTcpSocket* _clientSocket,QWidget *parent = nullptr);
     ~trade();
 
-        trade(vector<RecourceCard>&resource , vector<Seaport>&seaports);
-        bool trade_bank(string,string);
-        bool trade_Clients(vector<RecourceCard>_give, vector<RecourceCard>_recieve);
-        bool trade_seaport();//need correction
+        trade(vector<RecourceCard>& _resource,int& _sheep,int& _wheat,int& _wood,
+              int& _stone,int& _brick,vector<Seaport>& _seaports,QWidget *parent=0);
+
 public slots:
     void onTrade();
     void onYour_sheap();
@@ -52,17 +51,31 @@ private:
     int ratio2;   //get
     QString tradetype;
 
-    int sheap_You=0;
+    int sheep_You=0;
     int brick_You=0;
     int wheat_You=0;
     int stone_You=0;
     int wood_You=0;
 
-    int sheap_Their=0;
+    int sheep_Their=0;
     int brick_Their=0;
     int wheat_Their=0;
     int stone_Their=0;
     int wood_Their=0;
+
+
+    //my cards
+    vector<RecourceCard> resource;
+    int sheep;
+    int wheat;
+    int wood;
+    int stone;
+    int brick;
+    vector<Seaport> seaports;
+
+    bool trade_bank();
+    bool trade_Clients(vector<RecourceCard>_give, vector<RecourceCard>_recieve);
+    bool trade_seaport();
 };
 
 #endif // TRADE_H

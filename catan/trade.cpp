@@ -1,11 +1,19 @@
 #include "trade.h"
 #include "ui_trade.h"
 
-trade::trade(QWidget *parent,QTcpSocket* _clientSocket) :
+trade::trade(vector<RecourceCard>& _resource,int& _sheep,int& _wheat,int& _wood,
+             int& _stone,int& _brick,vector<Seaport>& _seaports,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::trade)
 {
-    clientSocket=_clientSocket;
+    resource=_resource;
+    sheep=_sheep;
+    wheat=_wheat;
+    wood=_wood;
+    stone=_stone;
+    brick=_brick;
+    seaports=_seaports;
+
 
     ui->setupUi(this);
     ui->trade_with->addItem(QIcon(":/prefix1/image/bank.png"),"Trade with Bank");
@@ -27,15 +35,23 @@ trade::trade(QWidget *parent,QTcpSocket* _clientSocket) :
    connect(ui->tarde_button,SIGNAL(clicked(bool)),this,SLOT(onTrade()));
    connect(ui->ok,SIGNAL(clicked(bool)),this,SLOT(onOk()));
 }
+
 void trade::onTrade()
 {
     //write request to server
+    if(tradetype=="Trade with Bank")
+        trade_bank();
+
+    //if(tradetype=="Trade with Players")
+
+    //if(tradetype=="Trade with Seaport")
+
     this->close();
 }
 
 void trade::onYour_sheap(){
-    sheap_You++;
-    ui->sheap_label->setText(QString::number(sheap_You));
+    sheep_You++;
+    ui->sheap_label->setText(QString::number(sheep_You));
 }
 void trade::onYour_brick(){
     brick_You++;
@@ -56,8 +72,8 @@ void trade::onYour_wood(){
 
 
 void trade::onTheir_sheap(){
-    sheap_Their++;
-    ui->sheap_label_->setText(QString::number(sheap_Their));
+    sheep_Their++;
+    ui->sheap_label_->setText(QString::number(sheep_Their));
 }
 void trade::onTheir_brick(){
     brick_Their++;
@@ -85,31 +101,125 @@ trade::~trade()
 {
     delete ui;
 }
+bool trade::trade_bank() {
 
-trade::trade(vector<RecourceCard>& resource, vector<Seaport>& seaports) {
-    sources = resource;
-    ports = seaports;
-}
-bool trade::trade_bank(string give,string recieve) {
-    ratio1 = 4;
-    ratio2 = 1;
-    int count = 0;
-    for (int i = 0; i < sources.size(); i++) {
-        if (sources[i].gettype() == give)
-            count++;
-    }
-    if (count >= 4) {
-        for (int i = 0; count != 0; i++, count--) {
-            if (sources[i].gettype() == give)
-                sources.erase(sources.begin() + i);
+
+
+    if (sheep_You == 4)
+    {
+        if (stone_Their == 1)
+        {
+            sheep -= 4;
+            stone += 1;
         }
-        RecourceCard card(recieve);
-        sources.push_back(card);
-        return true;
+        else if (brick_Their == 1)
+        {
+            sheep -= 4;
+            brick += 1;
+        }
+        else if (wood_Their == 1)
+        {
+            sheep -= 4;
+            wood += 1;
+        }
+        else if (wheat_Their == 1)
+        {
+            sheep -= 4;
+            wheat += 1;
+        }
     }
-    else
-        return false;
-
+    else if (wheat_You == 4)
+    {
+        if (stone_Their == 1)
+        {
+            wheat -= 4;
+            stone += 1;
+        }
+        else if (brick_Their == 1)
+        {
+            wheat -= 4;
+            brick += 1;
+        }
+        else if (wood_Their == 1)
+        {
+            wheat -= 4;
+            wood += 1;
+        }
+        else if (sheep_Their == 1)
+        {
+            wheat -= 4;
+            sheep += 1;
+        }
+    }
+    else if (stone_You == 4)
+    {
+        if (sheep_Their == 1)
+        {
+            stone -= 4;
+            sheep += 1;
+        }
+        else if (brick_Their == 1)
+        {
+            stone -= 4;
+            brick += 1;
+        }
+        else if (wood_Their == 1)
+        {
+            stone -= 4;
+            wood += 1;
+        }
+        else if (wheat_Their == 1)
+        {
+            stone -= 4;
+            wheat += 1;
+        }
+    }
+    else if (brick_You == 4)
+    {
+        if (stone_Their == 1)
+        {
+            brick -= 4;
+            stone += 1;
+        }
+        else if (sheep_Their == 1)
+        {
+            brick -= 4;
+            sheep += 1;
+        }
+        else if (wood_Their == 1)
+        {
+            brick -= 4;
+            wood += 1;
+        }
+        else if (wheat_Their == 1)
+        {
+            brick -= 4;
+            wheat += 1;
+        }
+    }
+    else if (wood_You == 4)
+    {
+        if (stone_Their == 1)
+        {
+            wood -= 4;
+            stone += 1;
+        }
+        else if (brick_Their == 1)
+        {
+            wood -= 4;
+            brick += 1;
+        }
+        else if (sheep_Their == 1)
+        {
+            wood -= 4;
+            sheep += 1;
+        }
+        else if (wheat_Their == 1)
+        {
+            wood -= 4;
+            wheat += 1;
+        }
+    }
 
 }
 bool trade::trade_Clients(vector<RecourceCard>_give , vector<RecourceCard>_recieve) {
@@ -120,14 +230,15 @@ bool trade::trade_Clients(vector<RecourceCard>_give , vector<RecourceCard>_recie
                 cnt++;
         }
     }
+    int counter=_give.size();
     if (cnt >= _give.size())
     {
-        while (cnt > 0) {
+        while (counter > 0) {
             for (int i = 0; i < sources.size(); i++) {
                 for (int j = 0; j < _give.size(); j++) {
                     if (sources[i].gettype() == _give[j].gettype()) {
                         sources.erase(sources.begin() + i);
-                        cnt--;
+                        counter--;
                     }
                 }
             }

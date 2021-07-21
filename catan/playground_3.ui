@@ -147,19 +147,25 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="name1">
+          <widget class="QLabel" name="point1">
            <property name="text">
             <string/>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_3">
+          <widget class="QRadioButton" name="r1">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -271,14 +277,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="name2">
+          <widget class="QLabel" name="point2">
            <property name="text">
             <string/>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_4">
+          <widget class="QRadioButton" name="r2">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -395,14 +401,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="name3">
+          <widget class="QLabel" name="point3">
            <property name="text">
             <string/>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_2">
+          <widget class="QRadioButton" name="r3">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -5376,6 +5382,27 @@
     </property>
     <property name="flat">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="diceNum">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>480</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>B Shiraz</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

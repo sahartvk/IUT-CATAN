@@ -78,6 +78,16 @@ void playground_3::initialPushButton()
         bb.push_back(false);
     }
 
+    //initial points
+    points.push_back(ui->point1);
+    points.push_back(ui->point2);
+    points.push_back(ui->point3);
+
+    //initial radio buttons->for turns
+    radioB.push_back(ui->r1);
+    radioB.push_back(ui->r2);
+    radioB.push_back(ui->r3);
+
     //initial pushbutton of vertice
     v.push_back(ui->v1);
     v.push_back(ui->v2);
@@ -454,6 +464,8 @@ void playground_3::readingData(){
        }
        else if(sdata=="build:S"){
 
+           radioB[p->getTurn()-1]->setChecked(true);
+
            int n=ui->building->count();
            for(int i=0;i<n;i++)
            {
@@ -478,6 +490,8 @@ void playground_3::readingData(){
        }
        else if(sdata=="build:R"){
 
+           radioB[p->getTurn()-1]->setChecked(true);
+
            int n=ui->building->count();
            for(int i=0;i<n;i++)
            {
@@ -500,6 +514,8 @@ void playground_3::readingData(){
            qDebug()<<"build:R";
        }
        else if(sdata=="stop"){
+
+           radioB[p->getTurn()-1]->setChecked(false);
 
            //disable all buttons
            for(int i=0;i<e.size();i++)
@@ -542,14 +558,18 @@ void playground_3::readingData(){
        }
        else if(sdata=="stopDice"){
            //disable dice button
+           radioB[p->getTurn()-1]->setChecked(false);
            ui->dice->setEnabled(false);
        }
        else if(sdata=="rollDice"){
            //activate dice pushbutton
+           radioB[p->getTurn()-1]->setChecked(true);
            ui->dice->setEnabled(true);
            
        }
        else if(sdata=="go"){
+
+           radioB[p->getTurn()-1]->setChecked(true);
 
            buildingType="nothing";
 
@@ -596,6 +616,8 @@ void playground_3::readingData(){
 
            std::string str=sdata.toUtf8().constData();
            int num=std::stoi(str.substr(str.find(":")+1));
+
+           ui->diceNum->setText(QString::number(num));
 
            vector<std::string> temp=m->getCards(num,p->getColor());
            p->update_resource(temp);
@@ -728,6 +750,9 @@ void playground_3::verticeClicked(){
         p->buySettlement();
     else if(buildingType=="city")
         p->buyCity();
+
+    p->update_victorypoint();
+    points[p->getTurn()-1]->setText(QString::number(p->get_victorypoint()));
 
     updateNumofCards();
 
@@ -983,7 +1008,8 @@ void playground_3::developmentcardClicked(){
 void playground_3::tradeClicked(){
 
     trade* t;
-    t=new trade();
+    t=new trade(p->getResources(),p->getSheep_cnt(),p->getWheat_cnt(),
+                p->getWood_cnt(),p->getStone_cnt(),p->getBrick_cnt(),p->getSeaports(),0);
     t->show();
 
 }
