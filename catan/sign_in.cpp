@@ -1,6 +1,7 @@
 #include "sign_in.h"
 #include "ui_sign_in.h"
 #include "catan3.h"
+#include "forgot_password.h"
 #include "catan2.h"
 #include <fstream>
 #include <QMessageBox>
@@ -67,7 +68,9 @@ void sign_in::onBack()
 }
 void sign_in::onFpassword()
 {
-
+    forgot_password *f=new forgot_password();
+    f->show();
+    this->close();
 }
 sign_in::~sign_in()
 {

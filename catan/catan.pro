@@ -12,6 +12,7 @@ SOURCES += \
     catan1.cpp \
     catan2.cpp \
     catan3.cpp \
+    forgot_password.cpp \
     main.cpp \
     catan.cpp \
     playground_3.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     catan1.h \
     catan2.h \
     catan3.h \
+    forgot_password.h \
     playground_3.h \
     playground_4.h \
     setting.h \
@@ -62,6 +64,7 @@ FORMS += \
     catan1.ui \
     catan2.ui \
     catan3.ui \
+    forgot_password.ui \
     playground_3.ui \
     playground_4.ui \
     setting.ui \

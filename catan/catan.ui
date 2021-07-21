@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1001</width>
-    <height>621</height>
+    <height>587</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>0</x>
       <y>-40</y>
       <width>1081</width>
-      <height>571</height>
+      <height>591</height>
      </rect>
     </property>
     <property name="palette">
@@ -97,14 +97,24 @@
    <widget class="QPushButton" name="loading">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>370</y>
-      <width>93</width>
-      <height>28</height>
+      <x>10</x>
+      <y>0</y>
+      <width>991</width>
+      <height>511</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Bodoni MT</family>
+      <pointsize>24</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Loading...</string>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label">

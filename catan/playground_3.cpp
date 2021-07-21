@@ -3,7 +3,6 @@
 #include<QPushButton>
 #include<fstream>
 #include<QDebug>
-#include"globalvar.h"
 
 using namespace std;
 
