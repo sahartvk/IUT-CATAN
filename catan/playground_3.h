@@ -9,7 +9,6 @@
 #include"player.h"
 #include"Map.h"
 
-
 namespace Ui {
 class playground_3;
 }
@@ -50,14 +49,22 @@ public slots:
     void updateNumofCards();
 
 private:
+
+    class vertice{
+    public:
+        vertice(bool _s,bool c){_s=false; c=false;}
+        bool s;
+        bool c;
+    };
+
+
     Ui::playground_3 *ui;
 
     QTcpSocket* clientSocket;
 
-    vector<QPushButton*> v;
-    vector<QPushButton*> e;
-    vector<QPushButton*> b;
-    vector<QPushButton*> t;
+    vector<QPushButton*> v,e,b,t;
+    vector<bool> eb,bb,tb;
+    vector<vertice> vb;
 
     void myWrite(QByteArray& data);
     void myWrite(const char* data);

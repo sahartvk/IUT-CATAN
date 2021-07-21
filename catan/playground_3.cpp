@@ -58,6 +58,26 @@ playground_3::~playground_3()
 
 void playground_3::initialPushButton()
 {
+    // vector<bool> vb,eb,bb,tb;
+    //to check that they are used or not
+
+    //when s is true we have a settlement
+    //there and when c is true we have a city there
+    for(int i=0;i<92;i++){
+        vb.push_back(vertice(false,false));
+    }
+
+    //when its false it means we can build there
+    for(int i=0;i<117;i++){
+        eb.push_back(false);
+    }
+    for(int i=0;i<28;i++){
+        tb.push_back(false);
+    }
+    for(int i=0;i<13;i++){
+        bb.push_back(false);
+    }
+
     //initial pushbutton of vertice
     v.push_back(ui->v1);
     v.push_back(ui->v2);
@@ -335,12 +355,6 @@ void playground_3::myWrite(QString& data){
     while(clientSocket->waitForBytesWritten(-1));
 }
 
-//void playground_3::myRead(QByteArray& data){
-
-//    while(!clientSocket->waitForReadyRead(-1));
-//    data=clientSocket->readAll();
-//}
-
 
 //starts from here
 
@@ -378,9 +392,12 @@ void playground_3::readingData(){
 
            //1
            //int n=std::stoi(str.substr(str.find(" "),str.find(":")));
-           int i;
-           string color,temp;
-           sscanf(str.c_str(),"s %d:%s-%s",&i,temp.c_str(),color.c_str());
+
+           //sscanf(str.c_str(),"s %d:%[^:]-%[^-]",&i,temp.c_str(),color.c_str());
+           string color=str.substr(str.find("-")+1);
+           string temp=str.substr(0,str.find(":"));
+           temp=temp.substr(temp.find(" ")+1);
+           int i=stoi(temp);
 
 
            //update gui and put a settelment in n position
@@ -397,9 +414,10 @@ void playground_3::readingData(){
 
            //1
            //int n=std::stoi(str.substr(str.find(" "),str.find(":")));
-           int i;
-           string color,temp;
-           sscanf(str.c_str(),"s %d:%s-%s",&i,temp.c_str(),color.c_str());
+           string color=str.substr(str.find("-")+1);
+           string temp=str.substr(0,str.find(":"));
+           temp=temp.substr(temp.find(" ")+1);
+           int i=stoi(temp);
 
 
            //update gui and put a settelment in n position
@@ -411,9 +429,10 @@ void playground_3::readingData(){
            //e 22-color
            std::string str=sdata.toUtf8().constData();
 
-           string color;
-           int i;
-           sscanf(str.c_str(),"e %d-%s",&i,color.c_str());
+           string color=str.substr(str.find("-")+1);
+           string temp=str.substr(0,str.find("-"));
+           temp=temp.substr(temp.find(" ")+1);
+           int i=stoi(temp);
 
            updateIconE(i,color);
            qDebug()<<"begining of the e";
@@ -425,9 +444,10 @@ void playground_3::readingData(){
 
            std::string str=sdata.toUtf8().constData();
 
-           string color;
-           int i;
-           sscanf(str.c_str(),"b %d-%s",&i,color.c_str());
+           string color=str.substr(str.find("-")+1);
+           string temp=str.substr(0,str.find("-"));
+           temp=temp.substr(temp.find(" ")+1);
+           int i=stoi(temp);
 
            updateIconB(i,color);
 
@@ -446,9 +466,13 @@ void playground_3::readingData(){
            //enable and show vertices to put a settlement
            for(int i=0;i<v.size();i++)
            {
-               v[i]->setEnabled(true);
-               v[i]->setFlat(false);
+               //do not forget to handle it for cities
+               if(vb[i].s==false){
+                   v[i]->setEnabled(true);
+                   v[i]->setFlat(false);
+               }
            }
+           //v vc vb
 
            qDebug()<<"build:S";
        }
@@ -466,8 +490,11 @@ void playground_3::readingData(){
            //show and enable edges to put a road
            for(int i=0;i<e.size();i++)
            {
-               e[i]->setEnabled(true);
-               e[i]->setFlat(false);
+               if((vb[i].s==false) || (vb[i].s==true && vb[i].c==false)){
+                   e[i]->setEnabled(true);
+                   e[i]->setFlat(false);
+               }
+               //else if(vb[i].c==true)
            }
 
            qDebug()<<"build:R";
@@ -478,22 +505,30 @@ void playground_3::readingData(){
            for(int i=0;i<e.size();i++)
            {
                e[i]->setEnabled(false);
-               e[i]->setFlat(true);
+
+               if(eb[i]==false)
+                    e[i]->setFlat(true);
            }
            for(int i=0;i<v.size();i++)
            {
                v[i]->setEnabled(false);
-               v[i]->setFlat(true);
+
+               if(!(vb[i].c==true || vb[i].s==true))
+                    v[i]->setFlat(true);
            }
            for(int i=0;i<b.size();i++)
-           {
+           {              
                b[i]->setEnabled(false);
-               b[i]->setFlat(true);
+
+               if(bb[i]==false)
+                    b[i]->setFlat(true);
            }
            for(int i=0;i<t.size();i++)
-           {
+           {              
                t[i]->setEnabled(false);
-               t[i]->setFlat(true);
+
+               if(tb[i]==false)
+                    t[i]->setFlat(true);
            }
            
            ui->trade->setEnabled(false);
@@ -515,6 +550,8 @@ void playground_3::readingData(){
            
        }
        else if(sdata=="go"){
+
+           buildingType="nothing";
 
            //buildings
            std::vector<std::string> temp;
@@ -666,15 +703,24 @@ void playground_3::verticeClicked(){
     QString name = button->objectName();
     string temp =name.toUtf8().constData();
     //int i = stoi(temp.substr(temp.find("v")+1));
+
     int i;
     sscanf(temp.c_str(),"v%d",&i);
 
-    //update icon
-    if(buildingType=="settlement")
-        updateIconV(i,p->getColor(),"s");
+    //to show and disable it forever
+    v[i-1]->setEnabled(false);
+    v[i-1]->setFlat(false);
 
-    else if(buildingType=="city")
+    //update icon
+    if(buildingType=="settlement"){
+        vb[i-1].s=true;
+        updateIconV(i,p->getColor(),"s");
+    }
+
+    else if(buildingType=="city"){
+        vb[i-1].c=true;
         updateIconV(i,p->getColor(),"c");
+    }
 
 
     //reduce and update cards
@@ -766,7 +812,7 @@ void playground_3::updateIconV(int i,string color,string type){
             qDebug()<<"begining of the set Icon";
             //gui->put a settlement picture in that button
             v[i-1]->setIcon(QIcon(":/prefix1/image/blue home.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            v[i-1]->setIconSize(QSize(25,25));
 
             v[i-1]->setFlat(false);
             qDebug()<<"set icon";
@@ -775,7 +821,7 @@ void playground_3::updateIconV(int i,string color,string type){
         {
             //gui->put a city picture in that button
             v[i-1]->setIcon(QIcon(":/prefix1/image/blue city.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            v[i-1]->setIconSize(QSize(25,25));
         }
     }
     else if(color=="yellow")
@@ -785,13 +831,13 @@ void playground_3::updateIconV(int i,string color,string type){
         {
             //gui->put a settlement picture in that button
             v[i-1]->setIcon(QIcon(":/prefix1/image/yellow home.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            v[i-1]->setIconSize(QSize(25,25));
         }
         if(type=="c")
         {
             //gui->put a city picture in that button
             v[i-1]->setIcon(QIcon(":/prefix1/image/yellow city.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            v[i-1]->setIconSize(QSize(25,25));
         }
     }
     else if(color=="red")
@@ -801,13 +847,13 @@ void playground_3::updateIconV(int i,string color,string type){
         {
             //gui->put a settlement picture in that button
             v[i-1]->setIcon(QIcon(":/prefix1/image/red home.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            v[i-1]->setIconSize(QSize(25,25));
         }
         if(type=="c")
         {
             //gui->put a city picture in that button
             v[i-1]->setIcon(QIcon(":/prefix1/image/red city.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            v[i-1]->setIconSize(QSize(25,25));
         }
     }
     else if(color=="green")
@@ -817,13 +863,13 @@ void playground_3::updateIconV(int i,string color,string type){
         {
             //gui->put a settlement picture in that button
             v[i-1]->setIcon(QIcon(":/prefix1/image/green home.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            v[i-1]->setIconSize(QSize(25,25));
         }
         if(type=="c")
         {
             //gui->put a city picture in that button
             v[i-1]->setIcon(QIcon(":/prefix1/image/green city.png"));
-            v[i-1]->setIconSize(QSize(30,30));
+            v[i-1]->setIconSize(QSize(25,25));
         }
     }
 }
@@ -837,7 +883,7 @@ void playground_3::updateIconE(int i,string color){
         {
             //gui->put a settlement picture in that button
             e[i-1]->setIcon(QIcon(":/prefix1/image/blue road.png"));
-            e[i-1]->setIconSize(QSize(30,30));
+            e[i-1]->setIconSize(QSize(25,25));
         }
     }
     else if(color=="yellow")
@@ -847,7 +893,7 @@ void playground_3::updateIconE(int i,string color){
         {
             //gui->put a settlement picture in that button
             e[i-1]->setIcon(QIcon(":/prefix1/image/yellow road.png"));
-            e[i-1]->setIconSize(QSize(30,30));
+            e[i-1]->setIconSize(QSize(25,25));
         }
     }
     else if(color=="red")
@@ -857,7 +903,7 @@ void playground_3::updateIconE(int i,string color){
         {
             //gui->put a settlement picture in that button
             e[i-1]->setIcon(QIcon(":/prefix1/image/red road.png"));
-            e[i-1]->setIconSize(QSize(30,30));
+            e[i-1]->setIconSize(QSize(25,25));
         }
     }
     else if(color=="green")
@@ -867,7 +913,7 @@ void playground_3::updateIconE(int i,string color){
         {
             //gui->put a settlement picture in that button
             e[i-1]->setIcon(QIcon(":/prefix1/image/green road.png"));
-            e[i-1]->setIconSize(QSize(30,30));
+            e[i-1]->setIconSize(QSize(25,25));
         }
     }
 }
@@ -880,6 +926,12 @@ void playground_3::edgeClicked(){
 
     int i;
     sscanf(name.c_str(),"e%d",&i);
+
+
+    //to show and disable it forever
+    e[i-1]->setEnabled(false);
+    e[i-1]->setFlat(false);
+    eb[i-1]==true;
 
     //update icon
     updateIconE(i,p->getColor());
@@ -941,13 +993,24 @@ void playground_3::okClicked(){
     //read from combo box
     buildingType=(ui->building->currentText()).toUtf8().constData();
 
-    if( buildingType=="settlement" ||  buildingType=="city"){
+    if( buildingType=="settlement"){
 
         //enable and show vertices to put a settlement
         for(int i=0;i<v.size();i++)
         {
-            v[i]->setEnabled(true);
-            v[i]->setFlat(false);
+            if(vb[i].s==false){
+                v[i]->setEnabled(true);
+                v[i]->setFlat(false);
+            }
+        }
+    }
+    else if(buildingType=="city"){
+
+        for(int i=0;i<v.size();i++){
+            if(vb[i].s==true && vb[i].c==false){
+                v[i]->setEnabled(true);
+                v[i]->setFlat(false);
+            }
         }
     }
     else if(buildingType=="road"){
@@ -955,8 +1018,10 @@ void playground_3::okClicked(){
         //enable and show edges to put a settlement
         for(int i=0;i<e.size();i++)
         {
-            e[i]->setEnabled(true);
-            e[i]->setFlat(false);
+            if(eb[i]==false){
+                e[i]->setEnabled(true);
+                e[i]->setFlat(false);
+            }
         }
     }
 
@@ -965,8 +1030,10 @@ void playground_3::okClicked(){
         //enable and show edges in the sea to put a settlement
         for(int i=0;i<b.size();i++)
         {
-            b[i]->setEnabled(true);
-            b[i]->setFlat(false);
+            if(bb[i]==false){
+                b[i]->setEnabled(true);
+                b[i]->setFlat(false);
+            }
         }
     }
 
@@ -996,19 +1063,19 @@ void playground_3::updateIconB(int i,string color){
 
     if(color=="red"){
        b[i-1]->setIcon(QIcon(":/prefix1/image/redbridge.png"));
-       b[i-1]->setIconSize(QSize(30,30));
+       b[i-1]->setIconSize(QSize(25,25));
     }
     if(color=="blue"){
        b[i-1]->setIcon(QIcon(":/prefix1/image/bluebridge .png"));
-       b[i-1]->setIconSize(QSize(30,30));
+       b[i-1]->setIconSize(QSize(25,25));
     }
     if(color=="green"){
        b[i-1]->setIcon(QIcon(":/prefix1/image/greenbridge .png"));
-       b[i-1]->setIconSize(QSize(30,30));
+       b[i-1]->setIconSize(QSize(25,25));
     }
     if(color=="yellow"){
        b[i-1]->setIcon(QIcon(":/prefix1/image/yellowbridge.png"));
-       b[i-1]->setIconSize(QSize(30,30));
+       b[i-1]->setIconSize(QSize(25,25));
     }
 }
 
@@ -1022,6 +1089,11 @@ void playground_3::bridgeClicked(){
     int i;
     sscanf(str.c_str(),"b%d",&i);
 
+
+    //to show and disable it forever
+    b[i-1]->setEnabled(false);
+    b[i-1]->setFlat(false);
+    bb[i-1]==true;
 
     updateIconB(i,p->getColor());
 
